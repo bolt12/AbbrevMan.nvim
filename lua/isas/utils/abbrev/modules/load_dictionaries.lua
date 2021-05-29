@@ -4,10 +4,10 @@ local M = {}
 
 local opts = require("isas.config").options
 -- local isas_augroups = require("isas.utils.abbrev.isas_augroups")
-local isas_dicts = require("isas.completions.aa_dictionaries").arguments
+-- local isas_dicts = require("isas.completions.aa_dictionaries").arguments
 local user_dicts = opts["dictionaries"]
 local loaded_dicts = {}
--- local isas_dicts = {"en", "es", "pt"}
+local isas_dicts = {"en", "es", "pt"}
 
 local function has_element(table, element, type)
 	if (type == "value") then
@@ -38,7 +38,7 @@ end
 function M.load_at_startup()
 	for u_dict in pairs(user_dicts) do
 		if has_element(isas_dicts, u_dict, "value") then
-		vim.cmd("echo 'Got HERE!!'")
+			vim.cmd("echo 'Got HERE!!'")
 			local inner_isas_dict = require("isas.dictionaries."..u_dict)
 			for element in pairs(inner_isas_dict) do
 				if has_element(user_dicts[u_dict], element, "index") then
