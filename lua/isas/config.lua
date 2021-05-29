@@ -24,10 +24,12 @@ function config.set_options(opts)
 
     for opt, _ in pairs(opts) do
 		if (config.options[opt] ~= nil) then		-- not nil
-			if (type(opts[opt]) == "table" and opt ~= "natural_dictionaries") then	-- if table
-				for inner_opt, _ in pairs(opts[opt]) do
-					if (config.options[opt][inner_opt] ~= nil) then		-- not nil
-						config.options[opt][inner_opt] = opts[opt][inner_opt]
+			if (type(opts[opt]) == "table") then	-- if table
+				if (opt ~= "natural_dictionaries" or opt ~= "programming_dictionaries") then	-- if table
+					for inner_opt, _ in pairs(opts[opt]) do
+						if (config.options[opt][inner_opt] ~= nil) then		-- not nil
+							config.options[opt][inner_opt] = opts[opt][inner_opt]
+						end
 					end
 				end
 			else
