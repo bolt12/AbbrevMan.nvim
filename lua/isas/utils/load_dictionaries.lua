@@ -42,7 +42,10 @@ function M.load()
 			for element in pairs(inner_isas_dict) do
 				map_iabbrev(element, inner_isas_dict[element])
 			end
-
+		else
+			for element in pairs(user_dicts[u_dict]) do
+				map_iabbrev(element, user_dicts[u_dict])
+			end
 		end
 	end
 end
