@@ -28,6 +28,7 @@ function M.load()
 			local inner_isas_dict = require("isas.dictionaries."..u_dict)
 
 			for element in pairs(inner_isas_dict) do
+				vim.cmd("echo 'Element = "..element.."; replacement = "..inner_isas_dict[element].."'")
 				if has_value(user_dicts[u_dict], element) then
 					-- inner_isas_dict[element] = user_dicts[u_dict][element]
 					if not (user_dicts[u_dict][element] == "rm_isas") then
