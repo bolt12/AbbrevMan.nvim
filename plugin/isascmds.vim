@@ -21,7 +21,7 @@ function! isascmds#aa_dictionaries() abort
 endfunction
 
 function! isascmds#aa_available_dictionaries() abort
-	return luaeval('require("isas.completions.aa_available_dictionaries_dictionaries").available_commands()')
+	return luaeval('require("isas.completions.aa_available_dictionaries").available_commands()')
 endfunction
 " }}}
 
