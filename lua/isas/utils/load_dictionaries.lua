@@ -41,7 +41,7 @@ function M.load()
 				-- end
 
 
-				for index, value in ipairs(user_dicts[u_dict]) do
+				for index, value in pairs(user_dicts[u_dict]) do
 					vim.cmd("echo 'index = "..index.."; value = "..value.."'")
 					-- if index == element then return true end
 				end
