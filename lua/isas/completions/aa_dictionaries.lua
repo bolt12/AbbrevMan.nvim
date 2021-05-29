@@ -3,9 +3,9 @@
 local M = {}
 
 M.arguments = {
-	en = "en",
-	es = "es",
-	pt = "pt"
+	["en"] = "en",
+	["es"] = "es",
+	["pt"] = "pt"
 }
 
 function M.available_commands()
