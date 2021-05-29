@@ -38,6 +38,7 @@ end
 function M.load_at_startup()
 	for u_dict in pairs(user_dicts) do
 		if has_element(isas_dicts, u_dict, "value") then
+		vim.cmd("echo 'Got HERE!!'")
 			local inner_isas_dict = require("isas.dictionaries."..u_dict)
 			for element in pairs(inner_isas_dict) do
 				if has_element(user_dicts[u_dict], element, "index") then
@@ -82,6 +83,7 @@ function M.load_at_startup()
 			-- 	map_iabbrev(element, inner_isas_dict[element])
 			-- end
 		else
+			vim.cmd("echo 'Got HEREEEEEEEEEEEEEEEEEEEEE!!'")
 			for element in pairs(user_dicts[u_dict]) do
 				map_iabbrev(element, user_dicts[u_dict][element])
 			end
