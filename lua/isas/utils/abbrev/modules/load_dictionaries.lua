@@ -31,7 +31,6 @@ local function unmap_iabbrev(element)
 end
 
 function M.load_dict(dict)
-	-- vim.cmd("echo '3 NEW DICT = "..dict.."'")
 	if has_element(isas_dicts, dict, "value") then
 		for element in pairs(require("isas.dictionaries."..dict)) do
 			map_iabbrev(element, require("isas.dictionaries."..dict)[element])
@@ -78,33 +77,6 @@ function M.load_at_startup()
 				map_iabbrev(element, inner_isas_dict[element])
 			end
 			table.insert(M.loaded_dicts, u_dict)
-
-
--- 			function load_local_group()
--- 				for element in pairs(inner_isas_dict) do
--- 					map_iabbrev(element, inner_isas_dict[element])
--- 				end
--- 			end
---
--- 			isas_augroups.set_augroups(
--- 				'ISAS_'..u_dict,
--- 				'BufWinEnter',
--- 				'*',
--- 				'execute "lua load_local_group()"'
--- 			)
-
-				-- 'execute "load_local_group()"'
-
-			-- vim.api.nvim_exec([[
-			-- 	augroup ISAS_en
-			-- 		autocmd!
-			-- 		autocmd BufWinEnter * echo "hello"
-			-- 	augroup END
-			-- ]], false)
-
-			-- for element in pairs(inner_isas_dict) do
-			-- 	map_iabbrev(element, inner_isas_dict[element])
-			-- end
 		else
 			for element in pairs(user_dicts[u_dict]) do
 				map_iabbrev(element, user_dicts[u_dict][element])
@@ -112,12 +84,6 @@ function M.load_at_startup()
 			table.insert(M.loaded_dicts, u_dict)
 		end
 	end
-
-
-	for dict in pairs(M.loaded_dicts) do
-		vim.cmd("echo 'Dict = "..M.loaded_dicts[dict].."'")
-	end
-
 end
 
 
