@@ -6,5 +6,7 @@ This plugin should be able to provide users these functionalities:
 	2. Create their own dictionaries
 	3. Modify dictionaries (adding, removing fields)
 
+There should also be an option to enable and disable the "completion"
+
 
 

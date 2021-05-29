@@ -4,7 +4,7 @@ local M = {}
 
 
 function M.setup_start_command()
-	vim.cmd("command! ISASStart lua require'isas.main'.main(0, 'load')")
+	vim.cmd("command! ISASStart lua require'isas.utils.load_dictionaries'.load()")
 end
 
 function M.setup(custome_opts)
