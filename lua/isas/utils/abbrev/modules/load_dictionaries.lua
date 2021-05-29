@@ -75,7 +75,7 @@ function M.load_at_startup()
 					if not (user_dicts[u_dict][element] == "rm_isas") then
 						inner_isas_dict[element] = user_dicts[u_dict][element]
 					else
-						table.remove(inner_isas_dict, find_index(inner_isas_dict, element))
+						inner_isas_dict[element] = nil -- remove element
 					end
 				end
 			end
