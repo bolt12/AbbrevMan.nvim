@@ -6,11 +6,11 @@ local M = {}
 local cmd = vim.cmd
 
 
-function M.set_augroups(group_name, pattern, command)
+function M.set_augroups(group_name, event, pattern, command)
 
 	cmd('augroup ' .. group_name)
 	cmd('autocmd!')
-	cmd('autocmd '..pattern..' '..command..'')
+	cmd('autocmd '..event..' '..pattern..' '..command..'')
 	cmd('augroup END')
 
 --     for group_name, definition in pairs(definitions) do
