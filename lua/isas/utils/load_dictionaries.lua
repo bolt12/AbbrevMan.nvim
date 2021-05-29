@@ -39,7 +39,7 @@ function M.load()
 					vim.cmd("echo 'val = "..val.."'")
 				end
 				if has_element(user_dicts[u_dict], element, "index") then
-					vim.cmd("echo 'Element in user dict = "..user_dicts[u_dict][element].."'")
+					vim.cmd("echo 'Element in user dict = "..user_dicts[u_dict][element].."aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'")
 					-- if not (user_dicts[u_dict][element] == "rm_isas") then
 					-- 	inner_isas_dict[element] = user_dicts[u_dict][element]
 					-- else
