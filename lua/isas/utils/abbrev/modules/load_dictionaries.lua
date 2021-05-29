@@ -26,8 +26,12 @@ local function map_iabbrev(element, replacement)
 	vim.cmd([[iabbrev ]]..element..[[ ]]..replacement)
 end
 
+local function unmap_iabbrev(element)
+	vim.cmd([[iunabbrev ]]..element)
+end
+
 function M.load_dict(dict)
-	vim.cmd("echo '3 NEW DICT = "..dict.."'")
+	-- vim.cmd("echo '3 NEW DICT = "..dict.."'")
 	if has_element(isas_dicts, dict, "value") then
 		for element in pairs(require("isas.dictionaries."..dict)) do
 			map_iabbrev(element, require("isas.dictionaries."..dict)[element])
@@ -36,13 +40,20 @@ function M.load_dict(dict)
 		for element in pairs(user_dicts[dict]) do
 			map_iabbrev(element, user_dicts[dict][element])
 		end
-		-- table.insert(loaded_dicts, dict)
 	end
 end
 --
--- function M.unload_dict(dict)
---
--- end
+function M.unload_dict(dict)
+	if has_element(isas_dicts, dict, "value") then
+		for element in pairs(require("isas.dictionaries."..dict)) do
+			unmap_iabbrev(element)
+		end
+	elseif has_element(user_dicts, dict, "value") then
+		for element in pairs(user_dicts[dict]) do
+			unmap_iabbrev(element)
+		end
+	end
+end
 
 function M.load_at_startup()
 	for u_dict in pairs(user_dicts) do
