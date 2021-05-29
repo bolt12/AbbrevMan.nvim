@@ -29,8 +29,8 @@ function M.load()
 
 			for element in pairs(inner_isas_dict) do
 				vim.cmd("echo 'Element = "..element.."; replacement = "..inner_isas_dict[element].."'")
-				vim.cmd("echo 'Element in user dict = "..user_dicts[u_dict][element].."'")
 				if has_value(user_dicts[u_dict], element) then
+					vim.cmd("echo 'Element in user dict = "..user_dicts[u_dict][element].."'")
 					-- inner_isas_dict[element] = user_dicts[u_dict][element]
 					if not (user_dicts[u_dict][element] == "rm_isas") then
 						inner_isas_dict[element] = user_dicts[u_dict][element]
