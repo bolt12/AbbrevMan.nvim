@@ -9,7 +9,7 @@ local isas_dicts = require("isas.completions.aa_dictionaries").arguments
 
 local function has_element(table, element, type)
 	if (type == "value") then
-		for index, value in ipairs(table) do
+		for index, value in pairs(table) do
 			if value == element then return true end
 		end
 	elseif (type == "index") then
