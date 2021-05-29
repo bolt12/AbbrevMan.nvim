@@ -3,12 +3,16 @@
 local config = {}
 
 config.options = {
-	load_at_startup = true,
+	load_natural_dictionaries_at_startup = true,
+	load_programming_dictionaries_at_startup = true,
 	integrations = {
 		integration_nvim_autopairs = true
 	},
 	natural_dictionaries = {
 		["nt_en"] = {}
+	},
+	programming_dictionaries = {
+		["pr_python"] = {}
 	}
 }
 
@@ -20,7 +24,7 @@ function config.set_options(opts)
 
     for opt, _ in pairs(opts) do
 		if (config.options[opt] ~= nil) then		-- not nil
-			if (type(opts[opt]) == "table" and opt ~= "natural_dictionaries") then	-- if table
+			if (type(opts[opt]) == "table" and opt ~= "natural_dictionaries" or opt ~= "programming_dictionaries") then	-- if table
 				for inner_opt, _ in pairs(opts[opt]) do
 					if (config.options[opt][inner_opt] ~= nil) then		-- not nil
 						config.options[opt][inner_opt] = opts[opt][inner_opt]

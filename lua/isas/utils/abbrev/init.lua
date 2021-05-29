@@ -23,7 +23,7 @@ function M.main(option, sub_option)
 
 	sub_option = sub_option or "NONE"
 
-	if (option == "load_at_startup") then
+	if (option == "load_natural_dictionaries_at_startup") then
 		load_at_startup()
 	elseif (option == "load_dict") then
 		load_dict(sub_option)

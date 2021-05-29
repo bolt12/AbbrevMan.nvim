@@ -66,6 +66,31 @@ function M.unload_dict(dict)
 	end
 end
 
+-- function M.mutable_load_at_startup(user_dictionary, isas_dictionary, lang_type)
+--
+-- 	for u_dict in pairs(user_dictionary) do
+-- 		if has_element(isas_dictionary, u_dict, "value") then
+-- 			local inner_isas_dictionary = require("isas.dictionaries."..lang_type.."."..u_dict)
+-- 			for element in pairs(inner_isas_dictionary) do
+-- 				if has_element(user_dictionary[u_dict], element, "index") then
+-- 					if not (user_dictionary[u_dict][element] == "rm_isas") then
+-- 						inner_isas_dictionary[element] = user_dictionary[u_dict][element]
+-- 					else
+-- 						inner_isas_dictionary[element] = nil -- remove element
+-- 					end
+-- 				end
+-- 			end
+--
+-- 			for element in pairs(inner_isas_dict) do
+-- 				map_iabbrev(element, inner_isas_dict[element])
+-- 			end
+-- 			table.insert(M.loaded_dicts, u_dict)
+-- 		else
+--
+-- 		end
+-- 	end
+-- end
+
 function M.load_at_startup()
 	for u_dict in pairs(user_dicts) do
 		if has_element(isas_dicts, u_dict, "value") then
