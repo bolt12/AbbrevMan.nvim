@@ -45,15 +45,15 @@ function M.load()
 			-- 	_isas_group = {"ISAS_"..u_dict, '*', "lua for element in pairs(inner_isas_dict) do map_iabbrev(element, inner_isas_dict[element]) end"}
 			-- })
 
-			isas_augroups.set_augroups(
-				'ISAS_'..u_dict,
-				'FileType *',
-				'lua for element in pairs(inner_isas_dict) do map_iabbrev(element, inner_isas_dict[element]) end'
-			)
+			-- isas_augroups.set_augroups(
+			-- 	'ISAS_'..u_dict,
+			-- 	'FileType *',
+			-- 	'lua for element in pairs(inner_isas_dict) do map_iabbrev(element, inner_isas_dict[element]) end'
+			-- )
 
-			-- for element in pairs(inner_isas_dict) do
-			-- 	map_iabbrev(element, inner_isas_dict[element])
-			-- end
+			for element in pairs(inner_isas_dict) do
+				map_iabbrev(element, inner_isas_dict[element])
+			end
 		else
 			for element in pairs(user_dicts[u_dict]) do
 				map_iabbrev(element, user_dicts[u_dict][element])
