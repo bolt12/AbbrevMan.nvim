@@ -45,11 +45,17 @@ function M.load()
 			-- 	_isas_group = {"ISAS_"..u_dict, '*', "lua for element in pairs(inner_isas_dict) do map_iabbrev(element, inner_isas_dict[element]) end"}
 			-- })
 
+			function load_local_group()
+				for element in pairs(inner_isas_dict) do
+					map_iabbrev(element, inner_isas_dict[element])
+				end
+			end
 
 			vim.api.nvim_exec([[
 				augroup isas_name
 					autocmd!
-					autocmd FileType * execute "for element in pairs(inner_isas_dict) do map_iabbrev(element, inner_isas_dict[element]) end"
+					" autocmd FileType * execute "lua for element in pairs(inner_isas_dict) do map_iabbrev(element, inner_isas_dict[element]) end"
+					" autocmd FileType * execute "for element in pairs(inner_isas_dict) do map_iabbrev(element, inner_isas_dict[element]) end"
 				augroup END
 			]], false)
 
