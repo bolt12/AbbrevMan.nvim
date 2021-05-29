@@ -51,3 +51,4 @@ unlet s:save_cpo
 
 " set to true the var that controls the plugin's loading state
 let g:loaded_isas = 1
+
