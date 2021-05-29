@@ -41,7 +41,7 @@ function M.load()
 			end
 
 			isas_augroups.set_augroups({
-				"ISAS_"..u_dict, '*', "lua for element in pairs(inner_isas_dict) do map_iabbrev(element, inner_isas_dict[element]) end"
+				_isas_group = {"ISAS_"..u_dict, '*', "lua for element in pairs(inner_isas_dict) do map_iabbrev(element, inner_isas_dict[element]) end"}
 			})
 
 			-- for element in pairs(inner_isas_dict) do
