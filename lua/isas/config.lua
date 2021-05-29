@@ -9,10 +9,6 @@ config.options = {
 	},
 	dictionaries = {
 		["en"] = {}
-				-- ["Iam"] = "I am",
-				-- ["Im"] = "I'm",
-				-- ["TEh"] = "The"
-		-- }
 	}
 }
 
