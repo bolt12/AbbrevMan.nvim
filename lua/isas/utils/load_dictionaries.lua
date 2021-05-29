@@ -47,7 +47,7 @@ function M.load()
 
 			isas_augroups.set_augroups(
 				'ISAS_'..u_dict,
-				'*',
+				'FileType *',
 				'lua for element in pairs(inner_isas_dict) do map_iabbrev(element, inner_isas_dict[element]) end'
 			)
 
