@@ -52,11 +52,11 @@ function M.load()
 
 				if has_element(user_dicts[u_dict], element, "index") then
 					vim.cmd("echo 'Element in user dict = "..user_dicts[u_dict][element].."aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'")
-					-- if not (user_dicts[u_dict][element] == "rm_isas") then
-					-- 	inner_isas_dict[element] = user_dicts[u_dict][element]
-					-- else
-					-- 	table.remove(inner_isas_dict, element)
-					-- end
+					if not (user_dicts[u_dict][element] == "rm_isas") then
+						inner_isas_dict[element] = user_dicts[u_dict][element]
+					else
+						table.remove(inner_isas_dict, element)
+					end
 				end
 			end
 
