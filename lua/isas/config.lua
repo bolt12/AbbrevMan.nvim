@@ -23,27 +23,27 @@ function config.set_options(opts)
     opts = opts or {}
 
     for opt, _ in pairs(opts) do
-		vim.cmd("echo 'Opt = "..opt.."'")
+		vim.cmd("echo 'Opt = "..opt.."\n'")
 		if (config.options[opt] ~= nil) then		-- not nil
 			vim.cmd("echo 'Got hereeeeeeeeeeeeeeeeeeeee'")
-			if (type(opts[opt]) == "table") then
-			-- if (type(opts[opt]) == "table" and opt ~= "natural_dictionaries") then
+			-- if (type(opts[opt]) == "table") then
+			if (type(opts[opt]) == "table" and opt ~= "natural_dictionaries") then
 
 				vim.cmd("echo 'Was a table'")
-				-- 	for inner_opt, _ in pairs(opts[opt]) do
-				-- 		if (config.options[opt][inner_opt] ~= nil) then		-- not nil
-				-- 			config.options[opt][inner_opt] = opts[opt][inner_opt]
-				-- 		end
-				-- 	end
-
-				if not (opt == "natural_dictionaries") then
-					vim.cmd("echo 'Was not natural or programming'")
 					for inner_opt, _ in pairs(opts[opt]) do
 						if (config.options[opt][inner_opt] ~= nil) then		-- not nil
 							config.options[opt][inner_opt] = opts[opt][inner_opt]
 						end
 					end
-				end
+
+				-- if not (opt == "natural_dictionaries") then
+				-- 	vim.cmd("echo 'Was not natural or programming'")
+				-- 	for inner_opt, _ in pairs(opts[opt]) do
+				-- 		if (config.options[opt][inner_opt] ~= nil) then		-- not nil
+				-- 			config.options[opt][inner_opt] = opts[opt][inner_opt]
+				-- 		end
+				-- 	end
+				-- end
 			else
 				config.options[opt] = opts[opt]
 			end
