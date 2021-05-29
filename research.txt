@@ -1,0 +1,10 @@
+
+
+
+This plugin should be able to provide users these functionalities:
+	1. Load pre-build dictionaries for correction
+	2. Create their own dictionaries
+	3. Modify dictionaries (adding, removing fields)
+
+
+
