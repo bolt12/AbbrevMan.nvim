@@ -8,7 +8,7 @@ config.options = {
 		integration_nvim_autopairs = true
 	},
 	dictionaries = {
-		["en"] = {}
+		["nt_en"] = {}
 	}
 }
 
