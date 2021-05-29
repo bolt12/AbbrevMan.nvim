@@ -36,7 +36,7 @@ function config.set_options(opts)
 				-- 		end
 				-- 	end
 
-				if (opt ~= "natural_dictionaries") then
+				if not (opt == "natural_dictionaries") then
 					vim.cmd("echo 'Was not natural or programming'")
 					for inner_opt, _ in pairs(opts[opt]) do
 						if (config.options[opt][inner_opt] ~= nil) then		-- not nil
