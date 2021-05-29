@@ -51,12 +51,19 @@ function M.load()
 				end
 			end
 
-			isas_augroups.set_augroups(
-				'ISAS_'..u_dict,
-				'BufWinEnter',
-				'*',
-				'execute "load_local_group()"'
-			)
+			-- isas_augroups.set_augroups(
+			-- 	'ISAS_'..u_dict,
+			-- 	'BufWinEnter',
+			-- 	'*',
+			-- 	'execute "load_local_group()"'
+			-- )
+
+			vim.api.nvim_exec([[
+				augroup ISAS_en
+					autocmd!
+					autocmd BufWinEnter * echo "hello"
+				augroup END
+			]], false)
 
 			-- for element in pairs(inner_isas_dict) do
 			-- 	map_iabbrev(element, inner_isas_dict[element])
