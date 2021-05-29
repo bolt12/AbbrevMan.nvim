@@ -10,6 +10,7 @@ local function load_at_startup()
 end
 
 local function load_dict(dict)
+	vim.cmd("echo '1 NEW DICT = "..dict.."'")
 	service.load_dict(dict)
 end
 

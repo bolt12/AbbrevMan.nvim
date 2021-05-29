@@ -27,7 +27,7 @@ local function map_iabbrev(element, replacement)
 end
 
 function M.load_dict(dict)
-	vim.cmd("echo 'NEW DICT = "..dict.."'")
+	vim.cmd("echo '3 NEW DICT = "..dict.."'")
 	if has_element(isas_dicts, dict, "value") then
 		for element in pairs(require("isas.dictionaries."..dict)) do
 			map_iabbrev(element, require("isas.dictionaries."..dict)[element])
