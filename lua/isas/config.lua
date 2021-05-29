@@ -23,7 +23,7 @@ function config.set_options(opts)
     opts = opts or {}
 
     for opt, _ in pairs(opts) do
-		vim.cmd("echo 'Opt = "..opt.."\n'")
+		vim.cmd("echo 'Opt = "..opt.."--------------'")
 		if (config.options[opt] ~= nil) then		-- not nil
 			vim.cmd("echo 'Got hereeeeeeeeeeeeeeeeeeeee'")
 			-- if (type(opts[opt]) == "table") then
