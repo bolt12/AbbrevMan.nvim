@@ -26,6 +26,14 @@ local function map_iabbrev(element, replacement)
 	vim.cmd([[iabbrev ]]..element..[[ ]]..replacement)
 end
 
+-- function M.load_dict(dict)
+--
+-- end
+--
+-- function M.unload_dict(dict)
+--
+-- end
+
 function M.load_at_startup()
 	for u_dict in pairs(user_dicts) do
 		if has_element(isas_dicts, u_dict, "value") then
@@ -40,14 +48,10 @@ function M.load_at_startup()
 				end
 			end
 
-
-			-- isas_augroups.set_augroups({
-			-- 	_isas_group = {"ISAS_"..u_dict, '*', "lua for element in pairs(inner_isas_dict) do map_iabbrev(element, inner_isas_dict[element]) end"}
-			-- })
-
 			for element in pairs(inner_isas_dict) do
 				map_iabbrev(element, inner_isas_dict[element])
 			end
+			table.insert(_G_loaded_dicts, u_dict)
 
 
 -- 			function load_local_group()
@@ -79,8 +83,15 @@ function M.load_at_startup()
 			for element in pairs(user_dicts[u_dict]) do
 				map_iabbrev(element, user_dicts[u_dict][element])
 			end
+			table.insert(_G_loaded_dicts, u_dict)
 		end
 	end
+
+
+	for dict in pairs(_G_loaded_dicts) do
+		vim.cmd("echo 'Dict = "..dict.."'")
+	end
+
 end
 
 
