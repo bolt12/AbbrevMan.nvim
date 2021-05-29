@@ -6,6 +6,7 @@ local opts = require("isas.config").options
 -- local isas_augroups = require("isas.utils.abbrev.isas_augroups")
 local isas_dicts = require("isas.completions.aa_dictionaries").arguments
 local user_dicts = opts["dictionaries"]
+local loaded_dicts = {}
 -- local isas_dicts = {"en", "es", "pt"}
 
 local function has_element(table, element, type)
@@ -51,7 +52,8 @@ function M.load_at_startup()
 			for element in pairs(inner_isas_dict) do
 				map_iabbrev(element, inner_isas_dict[element])
 			end
-			table.insert(_G_loaded_dicts, u_dict)
+			-- table.insert(_G_loaded_dicts, u_dict)
+			table.insert(loaded_dicts, u_dict)
 
 
 -- 			function load_local_group()
@@ -83,12 +85,12 @@ function M.load_at_startup()
 			for element in pairs(user_dicts[u_dict]) do
 				map_iabbrev(element, user_dicts[u_dict][element])
 			end
-			table.insert(_G_loaded_dicts, u_dict)
+			table.insert(loaded_dicts, u_dict)
 		end
 	end
 
 
-	for dict in pairs(_G_loaded_dicts) do
+	for dict in pairs(loaded_dicts) do
 		vim.cmd("echo 'Dict = "..dict.."'")
 	end
 
