@@ -29,12 +29,12 @@ function M.load()
 
 			for element in pairs(inner_isas_dict) do
 				if has_value(user_dicts[u_dict], element) then
-					inner_isas_dict[element] = user_dicts[u_dict][element]
-					-- if not (user_dicts[u_dict][element] == "rm_isas") then
-					-- 	inner_isas_dict[element] = user_dicts[u_dict][element]
-					-- else
-					-- 	table.
-					-- end
+					-- inner_isas_dict[element] = user_dicts[u_dict][element]
+					if not (user_dicts[u_dict][element] == "rm_isas") then
+						inner_isas_dict[element] = user_dicts[u_dict][element]
+					else
+						table.remove(inner_isas_dict, element)
+					end
 				end
 			end
 
