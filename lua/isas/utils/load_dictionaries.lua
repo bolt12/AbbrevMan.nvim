@@ -13,8 +13,8 @@ local function has_element(table, element, type)
 			if value == element then return true end
 		end
 	elseif (type == "index") then
-		for index, value in ipairs(table) do
-			-- vim.cmd("echo 'index = "..index.."; value = "..value.."'")
+		for index, value in pairs(table) do
+			vim.cmd("echo 'index = "..index.."; value = "..value.."'")
 			if index == element then return true end
 		end
 	end
@@ -41,10 +41,10 @@ function M.load()
 				-- end
 
 
-				for index, value in pairs(user_dicts[u_dict]) do
-					vim.cmd("echo 'index = "..index.."; value = "..value.."'")
-					-- if index == element then return true end
-				end
+				-- for index, value in pairs(user_dicts[u_dict]) do
+				-- 	vim.cmd("echo 'index = "..index.."; value = "..value.."'")
+				-- 	-- if index == element then return true end
+				-- end
 
 
 
