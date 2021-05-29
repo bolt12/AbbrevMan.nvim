@@ -44,7 +44,7 @@ function M.load()
 			end
 		else
 			for element in pairs(user_dicts[u_dict]) do
-				map_iabbrev(element, user_dicts[u_dict])
+				map_iabbrev(element, user_dicts[u_dict][element])
 			end
 		end
 	end
