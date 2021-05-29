@@ -18,6 +18,8 @@ function M.main(option, command_option)
 				require("isas.utils.abbrev.init").main("load_at_startup")
 			end
 		end
+	elseif (option == 1) then
+		require("isas.utils.abbrev.init").main("load_at_startup")
 	end
 end
 

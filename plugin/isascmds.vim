@@ -41,8 +41,8 @@ lua require('isas.main').main(0, 'load_at_startup')
 " }}}
 
 " Interface {{{
-command! -nargs=* -complete=custom,s:complete_aa_available_dictionaries ISASLoad call v:lua.require("isas.main").main(0,isascmds#get_first_arg(<f-args>))
-command! -nargs=* -complete=custom,s:complete_aa_dictionaries ISASUnload call v:lua.require("isas.main").main(1,isascmds#get_first_arg(<f-args>))
+command! -nargs=* -complete=custom,s:complete_aa_available_dictionaries ISASLoad call v:lua.require("isas.main").main(1,isascmds#get_first_arg(<f-args>))
+command! -nargs=* -complete=custom,s:complete_aa_dictionaries ISASUnload call v:lua.require("isas.main").main(2,isascmds#get_first_arg(<f-args>))
 " }}}
 
 
