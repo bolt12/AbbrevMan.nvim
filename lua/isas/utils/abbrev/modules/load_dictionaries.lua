@@ -39,8 +39,8 @@ end
 
 function M.load_dict(dict)
 	if has_element(isas_dicts, dict, "value") then
-		for element in pairs(require("isas.dictionaries."..dict)) do
-			map_iabbrev(element, require("isas.dictionaries."..dict)[element])
+		for element in pairs(require("isas.dictionaries.langs_natural."..dict)) do
+			map_iabbrev(element, require("isas.dictionaries.langs_natural."..dict)[element])
 		end
 	elseif has_element(user_dicts, dict, "value") then
 		for element in pairs(user_dicts[dict]) do
@@ -55,7 +55,7 @@ end
 function M.unload_dict(dict)
 	if has_element(M.loaded_dicts, dict, "value") then
 		if has_element(isas_dicts, dict, "value") then
-			for element in pairs(require("isas.dictionaries."..dict)) do
+			for element in pairs(require("isas.dictionaries.langs_natural."..dict)) do
 				unmap_iabbrev(element)
 			end
 		elseif has_element(user_dicts, dict, "value") then
@@ -69,7 +69,7 @@ end
 function M.load_at_startup()
 	for u_dict in pairs(user_dicts) do
 		if has_element(isas_dicts, u_dict, "value") then
-			local inner_isas_dict = require("isas.dictionaries."..u_dict)
+			local inner_isas_dict = require("isas.dictionaries.langs_natural."..u_dict)
 			for element in pairs(inner_isas_dict) do
 				if has_element(user_dicts[u_dict], element, "index") then
 					if not (user_dicts[u_dict][element] == "rm_isas") then
