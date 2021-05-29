@@ -19,11 +19,19 @@ endfunction
 function! isascmds#aa_dictionaries() abort
 	return luaeval('require("isas.completions.aa_dictionaries").available_commands()')
 endfunction
+
+function! isascmds#aa_available_dictionaries() abort
+	return luaeval('require("isas.completions.aa_available_dictionaries_dictionaries").available_commands()')
+endfunction
 " }}}
 
 " Tab Completion {{{
 function! s:complete_aa_dictionaries(arg, line, pos) abort
 	return join(isascmds#aa_dictionaries(), "\n")
+endfunction
+
+function! s:complete_aa_available_dictionaries(arg, line, pos) abort
+	return join(isascmds#aa_available_dictionaries(), "\n")
 endfunction
 " }}}
 
@@ -33,8 +41,8 @@ lua require('isas.main').main(0, 'load_at_startup')
 " }}}
 
 " Interface {{{
-command! -nargs=* -complete=custom,s:complete_aa_dictionaries ISASLoad call v:lua.require("high-str.main").main(0,isascmds#get_first_arg(<f-args>))
-command! -nargs=* -complete=custom,s:complete_aa_dictionaries ISASUnload call v:lua.require("high-str.main").main(1,isascmds#get_first_arg(<f-args>))
+command! -nargs=* -complete=custom,s:complete_aa_available_dictionaries ISASLoad call v:lua.require("isas.main").main(0,isascmds#get_first_arg(<f-args>))
+command! -nargs=* -complete=custom,s:complete_aa_dictionaries ISASUnload call v:lua.require("isas.main").main(1,isascmds#get_first_arg(<f-args>))
 " }}}
 
 
