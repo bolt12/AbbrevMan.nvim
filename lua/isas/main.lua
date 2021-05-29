@@ -19,7 +19,8 @@ function M.main(option, command_option)
 			end
 		end
 	elseif (option == 1) then
-		require("isas.utils.abbrev.init").main("load_at_startup")
+		vim.cmd("echo '0 NEW DICT = "..command_option.."'")
+		require("isas.utils.abbrev.init").main("load_dict", command_option)
 	end
 end
 
