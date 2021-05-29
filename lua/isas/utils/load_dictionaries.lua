@@ -55,7 +55,7 @@ function M.load()
 				'ISAS_'..u_dict,
 				'BufWinEnter',
 				'*',
-				'echo "hello"'
+				'execute "lua load_local_group()"'
 			)
 
 				-- 'execute "load_local_group()"'
