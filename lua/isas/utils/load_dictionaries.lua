@@ -22,7 +22,7 @@ end
 
 function M.load()
 
-	for u_dict in user_dicts do
+	for u_dict in pairs(user_dicts) do
 		vim.cmd("echo 'dict = "..u_dict.."'")
 -- 		if has_value(isas_dicts, u_dict) then
 --
