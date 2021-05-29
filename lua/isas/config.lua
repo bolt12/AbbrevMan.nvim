@@ -25,7 +25,9 @@ function config.set_options(opts)
     for opt, _ in pairs(opts) do
 		vim.cmd("echo 'Opt = "..opt.."'")
 		if (config.options[opt] ~= nil) then		-- not nil
+			vim.cmd("echo 'Got hereeeeeeeeeeeeeeeeeeeee'")
 			if (type(opts[opt]) == "table" and opt ~= "natural_dictionaries") then
+			-- if (type(opts[opt]) == "table" and opt ~= "natural_dictionaries") then
 
 				vim.cmd("echo 'Was a table'")
 					for inner_opt, _ in pairs(opts[opt]) do
