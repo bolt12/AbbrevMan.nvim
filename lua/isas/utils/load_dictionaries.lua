@@ -4,9 +4,9 @@ local M = {}
 
 local opts = require("isas.config").options
 local user_dicts = opts["dictionaries"]
-local isas_dicts = {"en", "es", "pt"}
+local isas_dicts = require("isas.completions.aa_dictionaries").arguments
+-- local isas_dicts = {"en", "es", "pt"}
 
--- local function has_element(table, val)
 local function has_element(table, element, type)
 	if (type == "value") then
 		for index, value in ipairs(table) do
