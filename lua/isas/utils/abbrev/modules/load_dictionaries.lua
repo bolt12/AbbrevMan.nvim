@@ -6,7 +6,6 @@ local opts = require("isas.config").options
 local isas_dicts = require("isas.completions.aa_dictionaries").arguments
 local user_dicts = opts["natural_dictionaries"]
 M.loaded_dicts = {}
--- local isas_augroups = require("isas.utils.abbrev.isas_augroups")
 
 local function has_element(table, element, type)
 	if (type == "value") then
@@ -28,6 +27,14 @@ end
 
 local function unmap_iabbrev(element)
 	vim.cmd([[iunabbrev ]]..element)
+end
+
+local function find_index(tabl, element)
+	for index, value in pairs(tabl) do
+		if (value == element) then
+			return index
+		end
+	end
 end
 
 function M.load_dict(dict)
@@ -68,7 +75,7 @@ function M.load_at_startup()
 					if not (user_dicts[u_dict][element] == "rm_isas") then
 						inner_isas_dict[element] = user_dicts[u_dict][element]
 					else
-						table.remove(inner_isas_dict, element)
+						table.remove(inner_isas_dict, find_index(inner_isas_dict, element))
 					end
 				end
 			end
