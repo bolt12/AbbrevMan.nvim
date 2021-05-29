@@ -3,7 +3,7 @@
 local M = {}
 
 local opts = require("isas.config").options
-local isas_augroups = require("isas.utils.isas_augroups")
+-- local isas_augroups = require("isas.utils.abbrev.isas_augroups")
 local isas_dicts = require("isas.completions.aa_dictionaries").arguments
 local user_dicts = opts["dictionaries"]
 -- local isas_dicts = {"en", "es", "pt"}
@@ -26,7 +26,7 @@ local function map_iabbrev(element, replacement)
 	vim.cmd([[iabbrev ]]..element..[[ ]]..replacement)
 end
 
-function M.load()
+function M.load_at_startup()
 	for u_dict in pairs(user_dicts) do
 		if has_element(isas_dicts, u_dict, "value") then
 			local inner_isas_dict = require("isas.dictionaries."..u_dict)
@@ -45,18 +45,23 @@ function M.load()
 			-- 	_isas_group = {"ISAS_"..u_dict, '*', "lua for element in pairs(inner_isas_dict) do map_iabbrev(element, inner_isas_dict[element]) end"}
 			-- })
 
-			function load_local_group()
-				for element in pairs(inner_isas_dict) do
-					map_iabbrev(element, inner_isas_dict[element])
-				end
+			for element in pairs(inner_isas_dict) do
+				map_iabbrev(element, inner_isas_dict[element])
 			end
 
-			isas_augroups.set_augroups(
-				'ISAS_'..u_dict,
-				'BufWinEnter',
-				'*',
-				'execute "lua load_local_group()"'
-			)
+
+-- 			function load_local_group()
+-- 				for element in pairs(inner_isas_dict) do
+-- 					map_iabbrev(element, inner_isas_dict[element])
+-- 				end
+-- 			end
+--
+-- 			isas_augroups.set_augroups(
+-- 				'ISAS_'..u_dict,
+-- 				'BufWinEnter',
+-- 				'*',
+-- 				'execute "lua load_local_group()"'
+-- 			)
 
 				-- 'execute "load_local_group()"'
 

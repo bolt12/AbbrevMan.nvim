@@ -7,23 +7,10 @@ local cmd = vim.cmd
 
 
 function M.set_augroups(group_name, event, pattern, command)
-
 	cmd('augroup ' .. group_name)
 	cmd('autocmd!')
 	cmd('autocmd '..event..' '..pattern..' '..command..'')
 	cmd('augroup END')
-
---     for group_name, definition in pairs(definitions) do
---         cmd('augroup ' .. group_name)
---         cmd('autocmd!')
---
---         for _, def in pairs(definition) do
---             local command = table.concat(vim.tbl_flatten {'autocmd', def}, ' ')
---             cmd(command)
---         end
---
---         cmd('augroup END')
---     end
 end
 
 function M.unset_augroup(group_name)
