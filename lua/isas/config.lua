@@ -7,7 +7,7 @@ config.options = {
 	integrations = {
 		integration_nvim_autopairs = true
 	},
-	dictionaries = {
+	natural_dictionaries = {
 		["nt_en"] = {}
 	}
 }

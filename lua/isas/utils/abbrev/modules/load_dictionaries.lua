@@ -4,7 +4,7 @@ local M = {}
 
 local opts = require("isas.config").options
 local isas_dicts = require("isas.completions.aa_dictionaries").arguments
-local user_dicts = opts["dictionaries"]
+local user_dicts = opts["natural_dictionaries"]
 M.loaded_dicts = {}
 -- local isas_augroups = require("isas.utils.abbrev.isas_augroups")
 

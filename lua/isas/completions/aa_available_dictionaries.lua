@@ -23,7 +23,7 @@ end
 function M.available_commands()
 
 	local isas_dicts = require("isas.completions.aa_dictionaries").arguments
-	local user_dicts = opts["dictionaries"]
+	local user_dicts = opts["natural_dictionaries"]
 
 	for dict in pairs(isas_dicts) do
 		M.arguments[dict] = dict
