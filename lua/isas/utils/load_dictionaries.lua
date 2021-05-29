@@ -3,8 +3,9 @@
 local M = {}
 
 local opts = require("isas.config").options
-local user_dicts = opts["dictionaries"]
+local isas_augroups = require("isas.utils.isas_augroups")
 local isas_dicts = require("isas.completions.aa_dictionaries").arguments
+local user_dicts = opts["dictionaries"]
 -- local isas_dicts = {"en", "es", "pt"}
 
 local function has_element(table, element, type)
@@ -39,9 +40,13 @@ function M.load()
 				end
 			end
 
-			for element in pairs(inner_isas_dict) do
-				map_iabbrev(element, inner_isas_dict[element])
-			end
+			isas_augroups.set_augroups({
+				"ISAS_"..u_dict, '*', "lua for element in pairs(inner_isas_dict) do map_iabbrev(element, inner_isas_dict[element]) end"
+			})
+
+			-- for element in pairs(inner_isas_dict) do
+			-- 	map_iabbrev(element, inner_isas_dict[element])
+			-- end
 		else
 			for element in pairs(user_dicts[u_dict]) do
 				map_iabbrev(element, user_dicts[u_dict][element])
