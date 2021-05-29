@@ -5,7 +5,7 @@ local M = {}
 local opts = require("isas.config").options
 local isas_dicts = require("isas.completions.aa_dictionaries").arguments
 local user_dicts = opts["dictionaries"]
-local loaded_dicts = {}
+M.loaded_dicts = {}
 -- local isas_augroups = require("isas.utils.abbrev.isas_augroups")
 
 local function has_element(table, element, type)
@@ -41,16 +41,21 @@ function M.load_dict(dict)
 			map_iabbrev(element, user_dicts[dict][element])
 		end
 	end
+
+	table.insert(M.loaded_dicts, dict)
+
 end
 --
 function M.unload_dict(dict)
-	if has_element(isas_dicts, dict, "value") then
-		for element in pairs(require("isas.dictionaries."..dict)) do
-			unmap_iabbrev(element)
-		end
-	elseif has_element(user_dicts, dict, "value") then
-		for element in pairs(user_dicts[dict]) do
-			unmap_iabbrev(element)
+	if has_element(M.loaded_dicts, dict, "value") then
+		if has_element(isas_dicts, dict, "value") then
+			for element in pairs(require("isas.dictionaries."..dict)) do
+				unmap_iabbrev(element)
+			end
+		elseif has_element(user_dicts, dict, "value") then
+			for element in pairs(user_dicts[dict]) do
+				unmap_iabbrev(element)
+			end
 		end
 	end
 end
@@ -72,8 +77,7 @@ function M.load_at_startup()
 			for element in pairs(inner_isas_dict) do
 				map_iabbrev(element, inner_isas_dict[element])
 			end
-			-- table.insert(_G_loaded_dicts, u_dict)
-			table.insert(loaded_dicts, u_dict)
+			table.insert(M.loaded_dicts, u_dict)
 
 
 -- 			function load_local_group()
@@ -105,13 +109,13 @@ function M.load_at_startup()
 			for element in pairs(user_dicts[u_dict]) do
 				map_iabbrev(element, user_dicts[u_dict][element])
 			end
-			table.insert(loaded_dicts, u_dict)
+			table.insert(M.loaded_dicts, u_dict)
 		end
 	end
 
 
-	for dict in pairs(loaded_dicts) do
-		vim.cmd("echo 'Dict = "..loaded_dicts[dict].."'")
+	for dict in pairs(M.loaded_dicts) do
+		vim.cmd("echo 'Dict = "..M.loaded_dicts[dict].."'")
 	end
 
 end

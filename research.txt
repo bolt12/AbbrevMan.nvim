@@ -8,5 +8,11 @@ This plugin should be able to provide users these functionalities:
 
 There should also be an option to enable and disable the "completion"
 
+TODO:
+
+1. Move autoloading to the autoload directory
+
+
+
 
 
