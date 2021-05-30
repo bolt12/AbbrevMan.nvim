@@ -20,7 +20,7 @@ end
 
 function M.runtime_path()
 	-- return vim.api.nvim_eval("expand('<sfile>:p')")
-	return vim.api.nvim_eval("get(g:, '__isas_main_path', 0)").."/yoooooooooooooooo"
+	return vim.api.nvim_eval("get(g:, '__isas_main_path', 0)").."/lua/isas/completions/aa_loaded_dictionaries.lua"
 end
 
 
