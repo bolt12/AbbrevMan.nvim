@@ -15,6 +15,8 @@ function M.main(option, command_option)
 			require("isas.init").setup_start_command()
 		elseif (command_option == "load_natural_dictionaries_at_startup") then
 				require("isas.utils.abbrev.init").main("load_natural_dictionaries_at_startup")
+		elseif (command_option == "load_programming_dictionaries_at_startup") then
+				require("isas.utils.abbrev.init").main("load_programming_dictionaries_at_startup")
 		else
 --
 --

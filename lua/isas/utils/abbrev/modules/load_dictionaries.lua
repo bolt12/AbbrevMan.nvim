@@ -91,7 +91,11 @@ end
 -- 	end
 -- end
 
-function M.load_at_startup()
+-- function M.load_natural_dictionaries_at_startup()
+--
+-- end
+
+function M.load_natural_dictionaries_at_startup()
 	for u_dict in pairs(user_dicts) do
 		if has_element(isas_dicts, u_dict, "value") then
 			local inner_isas_dict = require("isas.dictionaries.langs_natural."..u_dict)
