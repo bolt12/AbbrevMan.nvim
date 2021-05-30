@@ -3,8 +3,6 @@
 local M = {}
 
 local opts = require("isas.config").options
-local aa_ld = require("isas.completions.aa_loaded_dictionaries").loaded_dictionaries
-local aa_ld0 = require("isas.completions.aa_loaded_dictionaries")
 local isas_dicts = require("isas.dictionaries.langs_natural.langs_natural_list").arguments
 local user_dicts = opts["natural_dictionaries"]
 M.loaded_dicts = {}
@@ -94,7 +92,6 @@ function M.load_dict(dict)
 		end
 
 		table.insert(M.loaded_dicts, dict)
-		table.insert(aa_ld, dict)
 	elseif string.find(dict, "pr_") then
 
 		local file_type = dict:gsub("pr_", "")
@@ -120,7 +117,6 @@ function M.load_dict(dict)
 		end
 
 		table.insert(M.loaded_dicts, dict)
-		table.insert(aa_ld, dict)
 	else
 		vim.cmd("echo 'Invalid argument, dictionary must have a nt_ or a pr_ prefix'")
 	end
@@ -156,16 +152,11 @@ function M.unload_dict(dict)
 
 		vim.cmd("echo 'Dict = "..dict.."'")
 		remove_element_tbl(M.loaded_dicts, dict)
-		remove_element_tbl(aa_ld, dict)
 		for key, value in pairs(M.loaded_dicts) do
 			vim.cmd("echo 'Key = "..key.."; Value = "..value.."'")
 
 		end
 
-		-- vim.cmd("echo 'Runtime path = "..aa_ld0.runtime_path().."'")
-		-- local to_cmd = "luafile "..aa_ld0.runtime_path()
-		-- vim.cmd("echo 'ToCMd = "..to_cmd.."'")
-		-- vim.cmd([[luafile ]]..aa_ld0.runtime_path()..[[]])
 	else
 		vim.cmd("echo 'Invalid argument, dictionary must have a nt_ or a pr_ prefix'")
 	end
@@ -201,7 +192,6 @@ function M.load_programming_dictionaries_at_startup(option)
 					parse_iabbrev_pr(inner_isas_dict)
 				)
 				table.insert(M.loaded_dicts, u_dict)
-				table.insert(aa_ld, u_dict)
 			end
 
 		else
@@ -213,7 +203,6 @@ function M.load_programming_dictionaries_at_startup(option)
 					parse_iabbrev_pr(user_langs_programming_list[u_dict])
 				)
 				table.insert(M.loaded_dicts, u_dict)
-				table.insert(aa_ld, u_dict)
 			end
 		end
 
@@ -241,7 +230,6 @@ function M.load_natural_dictionaries_at_startup(option)
 					map_iabbrev(element, inner_isas_dict[element])
 				end
 				table.insert(M.loaded_dicts, u_dict)
-				table.insert(aa_ld, u_dict)
 			end
 		else
 			if (option == "source") then
@@ -249,7 +237,6 @@ function M.load_natural_dictionaries_at_startup(option)
 					map_iabbrev(element, user_dicts[u_dict][element])
 				end
 				table.insert(M.loaded_dicts, u_dict)
-				table.insert(aa_ld, u_dict)
 			end
 		end
 	end
