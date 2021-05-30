@@ -38,7 +38,14 @@ local function has_element(table, element, type)
 end
 
 function M.available_commands()
-	return vim.tbl_keys(M.loaded_dicts)
+
+	local arguments = {}
+
+	for dict, dict_name in pairs(M.loaded_dicts) do
+		arguments[dict_name] = dict_name
+	end
+
+	return vim.tbl_keys(arguments)
 end
 
 local function remove_element_tbl(tbl, element)
