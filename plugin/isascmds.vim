@@ -10,7 +10,7 @@ set cpo&vim " reset them to defaults
 
 
 " Vars {{{
-let g:__isas_main_path = expand('<sfile>:p:h')
+let g:__isas_main_path = expand('<sfile>:p:h:h')
 " }}}
 
 " Utils {{{
