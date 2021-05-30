@@ -117,6 +117,8 @@ function M.unload_dict(dict)
 				require("isas.utils.abbrev.modules.isas_augroups").unset_augroup("ISAS_"..dict)
 			end
 		end
+
+		M.loaded_dicts[dict] = nil
 	else
 		vim.cmd("echo 'Invalid argument, dictionary must have a nt_ or a pr_ prefix'")
 	end
