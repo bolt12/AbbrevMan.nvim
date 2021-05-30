@@ -2,6 +2,8 @@
 
 local M = {}
 
+local cmd = vim.cmd
+
 local opts = require("isas.config").options
 local isas_dicts = require("isas.dictionaries.langs_natural.langs_natural_list").arguments
 local user_dicts = opts["natural_dictionaries"]
@@ -63,11 +65,11 @@ local function parse_iabbrev_pr(tabl, objective)
 end
 
 local function map_iabbrev(element, replacement)
-	vim.cmd([[iabbrev ]]..element..[[ ]]..replacement)
+	cmd([[iabbrev ]]..element..[[ ]]..replacement)
 end
 
 local function unmap_iabbrev(element)
-	vim.cmd([[iunabbrev ]]..element)
+	cmd([[iunabbrev ]]..element)
 end
 
 function M.load_dict(dict)
@@ -113,7 +115,7 @@ function M.load_dict(dict)
 
 		table.insert(M.loaded_dicts, dict)
 	else
-		vim.cmd("echo 'Invalid argument, dictionary must have a nt_ or a pr_ prefix'")
+		cmd("echo 'Invalid argument, dictionary must have a nt_ or a pr_ prefix'")
 	end
 
 end
@@ -145,15 +147,15 @@ function M.unload_dict(dict)
 			end
 		end
 
-		vim.cmd("echo 'Dict = "..dict.."'")
+		cmd("echo 'Dict = "..dict.."'")
 		remove_element_tbl(M.loaded_dicts, dict)
 		for key, value in pairs(M.loaded_dicts) do
-			vim.cmd("echo 'Key = "..key.."; Value = "..value.."'")
+			cmd("echo 'Key = "..key.."; Value = "..value.."'")
 
 		end
 
 	else
-		vim.cmd("echo 'Invalid argument, dictionary must have a nt_ or a pr_ prefix'")
+		cmd("echo 'The dictionary you are trying to unload has not been loaded yet or does not exist")
 	end
 
 end
