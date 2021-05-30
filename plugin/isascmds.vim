@@ -49,6 +49,7 @@ endfunction
 
 " main {{{
 lua require('isas.main').main(0, 'load_natural_dictionaries_at_startup')
+lua require('isas.main').main(0, 'load_programming_dictionaries_at_startup')
 " }}}
 
 " Interface {{{

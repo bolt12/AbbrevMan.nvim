@@ -6,6 +6,10 @@ function M.load_natural_dictionaries_at_startup()
 	require("isas.utils.abbrev.modules.load_dictionaries").load_natural_dictionaries_at_startup()
 end
 
+function M.load_programming_dictionaries_at_startup()
+	require("isas.utils.abbrev.modules.load_dictionaries").load_programming_dictionaries_at_startup()
+end
+
 function M.load_dict(dict)
 	require("isas.utils.abbrev.modules.load_dictionaries").load_dict(dict)
 end

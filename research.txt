@@ -13,6 +13,8 @@ TODO:
 1. Move autoloading to the autoload directory
 
 
+The app must:
 
-
-
+	1. Prepare table
+	2. Pass table to func and func will parse them all into one string separated by pipes
+	3. Pass it to isas_augroup module

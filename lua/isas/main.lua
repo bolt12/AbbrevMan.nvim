@@ -18,11 +18,7 @@ function M.main(option, command_option)
 		elseif (command_option == "load_programming_dictionaries_at_startup") then
 				require("isas.utils.abbrev.init").main("load_programming_dictionaries_at_startup")
 		else
---
---
--- 			if (opts["load_natural_dictionaries_at_startup"] == true) then
--- 				require("isas.utils.abbrev.init").main("load_natural_dictionaries_at_startup")
--- 			end
+			-- nothing
 		end
 	elseif (option == 1) then
 		-- vim.cmd("echo '0 NEW DICT = "..command_option.."'")

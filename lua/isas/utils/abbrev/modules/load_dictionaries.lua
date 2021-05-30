@@ -29,14 +29,6 @@ local function unmap_iabbrev(element)
 	vim.cmd([[iunabbrev ]]..element)
 end
 
-local function find_index(tabl, element)
-	for index, value in pairs(tabl) do
-		if (value == element) then
-			return index
-		end
-	end
-end
-
 function M.load_dict(dict)
 	if has_element(isas_dicts, dict, "value") then
 		for element in pairs(require("isas.dictionaries.langs_natural."..dict)) do
@@ -94,6 +86,65 @@ end
 -- function M.load_natural_dictionaries_at_startup()
 --
 -- end
+
+local function parse_iabbrev_pr(tabl)
+
+	local str_commands = ""
+
+	for index, value in pairs(tabl) do
+		local to_concat = "iabbrev "..index..[[ ]]..value
+		str_commands = str_commands.."|"..to_concat
+	end
+
+	return str_commands
+
+end
+
+function M.load_programming_dictionaries_at_startup()
+
+	local isas_langs_programming_list = require("isas.dictionaries.langs_programming.langs_programming_list").arguments
+	local user_langs_programming_list = opts["programming_dictionaries"]
+
+	for u_dict in pairs(user_langs_programming_list) do
+		if has_element(isas_langs_programming_list, u_dict, "value") then
+
+			local inner_isas_dict = require("isas.dictionaries.langs_programming."..u_dict)
+
+			for element in pairs(inner_isas_dict) do
+				if has_element(user_langs_programming_list[u_dict], element, "index") then
+					if not (user_langs_programming_list[u_dict][element] == "rm_isas") then
+						inner_isas_dict[element] = user_langs_programming_list[u_dict][element]
+					else
+						inner_isas_dict[element] = nil -- remove element
+					end
+				end
+			end
+
+			local file_type = u_dict:gsub("pr_", "")
+
+			require("isas.utils.abbrev.modules.isas_augroups").set_augroups(
+				"ISAS_"..u_dict,
+				"BufEnter",
+				"*"..file_type,
+				parse_iabbrev_pr(inner_isas_dict)
+			)
+
+			table.insert(M.loaded_dicts, u_dict)
+		else
+			local file_type = u_dict:gsub("pr_", "")
+
+			require("isas.utils.abbrev.modules.isas_augroups").set_augroups(
+				"ISAS_"..u_dict,
+				"BufEnter",
+				"*"..file_type,
+				parse_iabbrev_pr(user_langs_programming_list[u_dict])
+			)
+			table.insert(M.loaded_dicts, u_dict)
+		end
+
+	end
+
+end
 
 function M.load_natural_dictionaries_at_startup()
 	for u_dict in pairs(user_dicts) do
