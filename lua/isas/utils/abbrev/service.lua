@@ -2,7 +2,7 @@
 
 local M = {}
 
-function M.load_at_startup()
+function M.load_natural_dictionaries_at_startup()
 	require("isas.utils.abbrev.modules.load_dictionaries").load_natural_dictionaries_at_startup()
 end
 
