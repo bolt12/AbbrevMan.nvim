@@ -133,9 +133,7 @@ function M.load_programming_dictionaries_at_startup()
 		local file_type = u_dict:gsub("pr_", "")
 
 		if has_element(isas_langs_programming_list, u_dict, "value") then
---
 			local inner_isas_dict = require("isas.dictionaries.langs_programming."..u_dict)
---
 			for element in pairs(inner_isas_dict) do
 				if has_element(user_langs_programming_list[u_dict], element, "index") then
 					if not (user_langs_programming_list[u_dict][element] == "rm_isas") then
@@ -145,14 +143,12 @@ function M.load_programming_dictionaries_at_startup()
 					end
 				end
 			end
--- --
 			require("isas.utils.abbrev.modules.isas_augroups").set_augroups(
 				"ISAS_"..u_dict,
 				"BufWinEnter",
 				"*."..file_type.." silent!",
 				parse_iabbrev_pr(inner_isas_dict)
 			)
--- --
 		else
 			require("isas.utils.abbrev.modules.isas_augroups").set_augroups(
 				"ISAS_"..u_dict,
