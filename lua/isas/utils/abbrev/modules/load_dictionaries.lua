@@ -3,7 +3,8 @@
 local M = {}
 
 local opts = require("isas.config").options
-local isas_dicts = require("isas.completions.aa_dictionaries").arguments
+-- local isas_dicts = require("isas.completions.aa_dictionaries").arguments
+local isas_dicts = require("isas.dictionaries.langs_programming.langs_programming_list").arguments
 local user_dicts = opts["natural_dictionaries"]
 M.loaded_dicts = {}
 
