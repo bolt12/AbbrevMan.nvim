@@ -123,8 +123,8 @@ end
 function M.unload_dict(dict)
 
 	local isas_langs_natural_list = require("isas.dictionaries.langs_natural.langs_natural_list").arguments
-	local user_langs_natural_list = opts["natural_dictionaries"]
 	local isas_langs_programming_list = require("isas.dictionaries.langs_programming.langs_programming_list").arguments
+	local user_langs_natural_list = opts["natural_dictionaries"]
 	local user_langs_programming_list = opts["programming_dictionaries"]
 
 
@@ -140,10 +140,16 @@ function M.unload_dict(dict)
 				end
 			end
 		elseif string.find(dict, "pr_") then
-			if has_element(user_langs_programming_list, dict, "value") then
+			if has_element(isas_langs_programming_list, dict, "value") then
 				require("isas.utils.abbrev.modules.isas_augroups").unset_augroup("ISAS_"..dict)
-			elseif has_element(isas_langs_programming_list, dict, "value") then
+				for element in pairs(require("isas.dictionaries.langs_programming."..dict)) do
+					unmap_iabbrev(element)
+				end
+			elseif has_element(user_langs_programming_list, dict, "value") then
 				require("isas.utils.abbrev.modules.isas_augroups").unset_augroup("ISAS_"..dict)
+				for element in pairs(require(user_langs_programming_list[dict])) do
+					unmap_iabbrev(element)
+				end
 			end
 		end
 
