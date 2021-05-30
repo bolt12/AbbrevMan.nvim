@@ -123,20 +123,20 @@ function M.load_programming_dictionaries_at_startup()
 				end
 			end
 -- --
-			-- require("isas.utils.abbrev.modules.isas_augroups").set_augroups(
-			-- 	"ISAS_"..u_dict,
-			-- 	"BufWinEnter",
-			-- 	"*."..file_type,
-			-- 	parse_iabbrev_pr(inner_isas_dict)
-			-- )
+			require("isas.utils.abbrev.modules.isas_augroups").set_augroups(
+				"ISAS_"..u_dict,
+				"BufWinEnter",
+				"*."..file_type,
+				parse_iabbrev_pr(inner_isas_dict)
+			)
 -- --
 		else
-			-- require("isas.utils.abbrev.modules.isas_augroups").set_augroups(
-			-- 	"ISAS_"..u_dict,
-			-- 	"BufEnter",
-			-- 	"*"..file_type,
-			-- 	parse_iabbrev_pr(user_langs_programming_list[u_dict])
-			-- )
+			require("isas.utils.abbrev.modules.isas_augroups").set_augroups(
+				"ISAS_"..u_dict,
+				"BufEnter",
+				"*"..file_type,
+				parse_iabbrev_pr(user_langs_programming_list[u_dict])
+			)
 		end
 
 		table.insert(M.loaded_dicts, u_dict)
