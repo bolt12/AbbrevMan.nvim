@@ -125,7 +125,11 @@ function M.unload_dict(dict)
 			end
 		end
 
-		remove_element_tbl(M.loaded_dicts, dict)
+		-- remove_element_tbl(M.loaded_dicts, dict)
+		for key, value in pairs(M.loaded_dicts) do
+			vim.cmd("echo 'Key = "..key.."; Value = "..value.."'")
+
+		end
 	else
 		vim.cmd("echo 'Invalid argument, dictionary must have a nt_ or a pr_ prefix'")
 	end
