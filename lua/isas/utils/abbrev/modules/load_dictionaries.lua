@@ -30,17 +30,41 @@ local function unmap_iabbrev(element)
 end
 
 function M.load_dict(dict)
-	if has_element(isas_dicts, dict, "value") then
-		for element in pairs(require("isas.dictionaries.langs_natural."..dict)) do
-			map_iabbrev(element, require("isas.dictionaries.langs_natural."..dict)[element])
-		end
-	elseif has_element(user_dicts, dict, "value") then
-		for element in pairs(user_dicts[dict]) do
-			map_iabbrev(element, user_dicts[dict][element])
-		end
-	end
+	if string.find(dict, "nt_") then
 
-	table.insert(M.loaded_dicts, dict)
+		local isas_langs_natural_list = require("isas.dictionaries.langs_natural.langs_natural_list").arguments
+		local user_langs_natural_list = opts["natural_dictionaries"]
+
+		if has_element(isas_langs_natural_list, dict, "value") then
+			for element in pairs(require("isas.dictionaries.langs_natural."..dict)) do
+				map_iabbrev(element, require("isas.dictionaries.langs_natural."..dict)[element])
+			end
+		elseif has_element(user_langs_natural_list, dict, "value") then
+			for element in pairs(user_langs_natural_list[dict]) do
+				map_iabbrev(element, user_langs_natural_list[dict][element])
+			end
+		end
+
+		table.insert(M.loaded_dicts, dict)
+	elseif string.find(dict, "pr_") then
+
+		local isas_langs_programming_list = require("isas.dictionaries.langs_programming.langs_programming_list").arguments
+		local user_langs_programming_list = opts["programming_dictionaries"]
+
+		if has_element(isas_langs_programming_list, dict, "value") then
+			for element in pairs(require("isas.dictionaries.langs_programming."..dict)) do
+				map_iabbrev(element, require("isas.dictionaries.langs_programming."..dict)[element])
+			end
+		elseif has_element(user_langs_programming_list, dict, "value") then
+			for element in pairs(user_langs_programming_list[dict]) do
+				map_iabbrev(element, user_langs_programming_list[dict][element])
+			end
+		end
+
+		table.insert(M.loaded_dicts, dict)
+	else
+		vim.cmd("echo 'Invalid argument, dictionary must have a nt_ or a pr_ prefix'")
+	end
 
 end
 --
