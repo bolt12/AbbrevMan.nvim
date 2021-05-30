@@ -5,7 +5,7 @@ local M = {}
 M.arguments = {
 	["pr_java"] = "pr_java",
 	["pr_lua"] = "pr_lua",
-	["pr_python"] = "pr_python"
+	["pr_py"] = "pr_py"
 }
 
 return M
