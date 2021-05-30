@@ -12,7 +12,7 @@ config.options = {
 		["nt_en"] = {}
 	},
 	programming_dictionaries = {
-		["pr_python"] = {}
+		["pr_py"] = {}
 	}
 }
 
