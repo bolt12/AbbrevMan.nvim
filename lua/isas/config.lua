@@ -43,6 +43,8 @@ function config.set_options(opts)
 							config.options[opt][inner_opt] = opts[opt][inner_opt]
 						end
 					end
+				else
+					config.options[opt] = opts[opt]
 				end
 			else
 				config.options[opt] = opts[opt]
