@@ -165,11 +165,13 @@ function M.load_natural_dictionaries_at_startup()
 				end
 			end
 
+			vim.cmd("echo 'Got here'")
 			for element in pairs(inner_isas_dict) do
 				map_iabbrev(element, inner_isas_dict[element])
 			end
 			table.insert(M.loaded_dicts, u_dict)
 		else
+			vim.cmd("echo 'Got here 1'")
 			for element in pairs(user_dicts[u_dict]) do
 				map_iabbrev(element, user_dicts[u_dict][element])
 			end
