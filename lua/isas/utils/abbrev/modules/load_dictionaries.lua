@@ -111,6 +111,11 @@ function M.load_programming_dictionaries_at_startup()
 		vim.cmd("echo 'Key = "..key.."'")
 	end
 
+
+	for u_dict in pairs(user_langs_programming_list) do
+		vim.cmd("echo 'U dict = "..u_dict.."'")
+	end
+
 	for u_dict in pairs(user_langs_programming_list) do
 		if has_element(isas_langs_programming_list, u_dict, "value") then
 			vim.cmd("echo 'Got here'")
@@ -158,9 +163,9 @@ end
 
 function M.load_natural_dictionaries_at_startup()
 
-	for key in pairs(isas_dicts) do
-		vim.cmd("echo 'Key = "..key.."'")
-	end
+	-- for key in pairs(isas_dicts) do
+	-- 	vim.cmd("echo 'Key = "..key.."'")
+	-- end
 
 	for u_dict in pairs(user_dicts) do
 		if has_element(isas_dicts, u_dict, "value") then
