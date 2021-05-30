@@ -5,6 +5,7 @@ local M = {}
 
 M.arguments = {}
 -- local loaded_dicts = require("isas.utils.abbrev.modules.load_dictionaries").loaded_dicts
+vim.g.__isas_val = "yooooo"
 
 M.loaded_dictionaries = {}
 
@@ -14,6 +15,8 @@ function M.available_commands()
 	-- for dict, dict_name in pairs(require("isas.utils.abbrev.modules.load_dictionaries").loaded_dicts) do
 		M.arguments[dict_name] = dict_name
 	end
+
+	table.insert(M.arguments, vim.g.__isas_val)
 
 	return vim.tbl_keys(M.arguments)
 end

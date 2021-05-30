@@ -151,8 +151,10 @@ function M.unload_dict(dict)
 
 		end
 
-		vim.cmd("echo 'Runtime path = "..aa_ld0.runtime_path().."'")
-		vim.cmd([[luafile ]]..aa_ld0.runtime_path()..[[]])
+		-- vim.cmd("echo 'Runtime path = "..aa_ld0.runtime_path().."'")
+		-- local to_cmd = "luafile "..aa_ld0.runtime_path()
+		-- vim.cmd("echo 'ToCMd = "..to_cmd.."'")
+		-- vim.cmd([[luafile ]]..aa_ld0.runtime_path()..[[]])
 	else
 		vim.cmd("echo 'Invalid argument, dictionary must have a nt_ or a pr_ prefix'")
 	end
