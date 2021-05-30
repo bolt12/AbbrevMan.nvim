@@ -105,43 +105,43 @@ function M.load_programming_dictionaries_at_startup()
 	local isas_langs_programming_list = require("isas.dictionaries.langs_programming.langs_programming_list").arguments
 	local user_langs_programming_list = opts["programming_dictionaries"]
 
--- 	for u_dict in pairs(user_langs_programming_list) do
+	for u_dict in pairs(user_langs_programming_list) do
+
+		local file_type = u_dict:gsub("pr_", "")
+
+		if has_element(isas_langs_programming_list, u_dict, "value") then
 --
--- 		local file_type = u_dict:gsub("pr_", "")
+			local inner_isas_dict = require("isas.dictionaries.langs_programming."..u_dict)
 --
--- 		if has_element(isas_langs_programming_list, u_dict, "value") then
+			for element in pairs(inner_isas_dict) do
+				if has_element(user_langs_programming_list[u_dict], element, "index") then
+					if not (user_langs_programming_list[u_dict][element] == "rm_isas") then
+						inner_isas_dict[element] = user_langs_programming_list[u_dict][element]
+					else
+						inner_isas_dict[element] = nil -- remove element
+					end
+				end
+			end
 -- --
--- 			local inner_isas_dict = require("isas.dictionaries.langs_programming."..u_dict)
+			-- require("isas.utils.abbrev.modules.isas_augroups").set_augroups(
+			-- 	"ISAS_"..u_dict,
+			-- 	"BufWinEnter",
+			-- 	"*."..file_type,
+			-- 	parse_iabbrev_pr(inner_isas_dict)
+			-- )
 -- --
--- 			for element in pairs(inner_isas_dict) do
--- 				if has_element(user_langs_programming_list[u_dict], element, "index") then
--- 					if not (user_langs_programming_list[u_dict][element] == "rm_isas") then
--- 						inner_isas_dict[element] = user_langs_programming_list[u_dict][element]
--- 					else
--- 						inner_isas_dict[element] = nil -- remove element
--- 					end
--- 				end
--- 			end
--- -- --
--- 			require("isas.utils.abbrev.modules.isas_augroups").set_augroups(
--- 				"ISAS_"..u_dict,
--- 				"BufWinEnter",
--- 				"*."..file_type,
--- 				parse_iabbrev_pr(inner_isas_dict)
--- 			)
--- -- --
--- 		else
--- 			require("isas.utils.abbrev.modules.isas_augroups").set_augroups(
--- 				"ISAS_"..u_dict,
--- 				"BufEnter",
--- 				"*"..file_type,
--- 				parse_iabbrev_pr(user_langs_programming_list[u_dict])
--- 			)
--- 		end
---
--- 		table.insert(M.loaded_dicts, u_dict)
---
--- 	end
+		else
+			-- require("isas.utils.abbrev.modules.isas_augroups").set_augroups(
+			-- 	"ISAS_"..u_dict,
+			-- 	"BufEnter",
+			-- 	"*"..file_type,
+			-- 	parse_iabbrev_pr(user_langs_programming_list[u_dict])
+			-- )
+		end
+
+		table.insert(M.loaded_dicts, u_dict)
+
+	end
 
 end
 
