@@ -40,17 +40,25 @@ local function remove_element_tbl(tbl, element)
 	end
 end
 
-local function parse_iabbrev_pr(tabl, mode)
+local function parse_iabbrev_pr(tabl, objective)
 
-	if (mode == "global") then
-		local str_commands = ""
+	local str_commands = ""
+
+	if (objective == "global") then
 
 		for index, value in pairs(tabl) do
 			local to_concat = "iabbrev "..index..[[ ]]..value
 			str_commands = str_commands.."|"..to_concat
 		end
-		return str_commands
+	elseif (objective == "buffer") then
+		for index, value in pairs(tabl) do
+			local to_concat = "iabbrev <buffer>"..index..[[ ]]..value
+			str_commands = str_commands.."|"..to_concat
+		end
+
 	end
+
+	return str_commands
 
 end
 
@@ -178,6 +186,13 @@ function M.load_programming_dictionaries_at_startup(option)
 					"*."..file_type.." silent!",
 					parse_iabbrev_pr(inner_isas_dict, "global")
 				)
+
+				local buffer_filetype = vim.api.nvim_eval([[expand('%:e')]])
+
+				if (buffer_filetype == file_type) then
+					parse_iabbrev_pr(inner_isas_dict, "buffer")
+				end
+
 				table.insert(M.loaded_dicts, u_dict)
 			end
 
@@ -189,20 +204,17 @@ function M.load_programming_dictionaries_at_startup(option)
 					"*"..file_type.." silent!",
 					parse_iabbrev_pr(user_langs_programming_list[u_dict], "global")
 				)
+
+				local buffer_filetype = vim.api.nvim_eval([[expand('%:e')]])
+
+				if (buffer_filetype == file_type) then
+					parse_iabbrev_pr(user_langs_programming_list[u_dict], "buffer")
+				end
+
 				table.insert(M.loaded_dicts, u_dict)
 			end
 		end
-
-		local buffer_filetype = vim.api.nvim_eval([[expand('%:e')]])
-		vim.cmd("echo 'Buffer extension = "..buffer_filetype.."'")
-		vim.cmd("echo 'Dictionary extension = "..file_type.."'")
-
-		if (buffer_filetype == file_type) then
-			vim.cmd("echo 'They are the same!!'")
-		end
-
 	end
-
 end
 
 function M.load_natural_dictionaries_at_startup(option)
