@@ -121,10 +121,9 @@ function M.load_programming_dictionaries_at_startup()
 				end
 			end
 --
-
 			local file_type = u_dict:gsub("pr_", "")
-			-- vim.cmd("echo '"..file_type.."'")
-			-- vim.cmd("echo '"..parse_iabbrev_pr(inner_isas_dict).."'")
+			vim.cmd("echo '"..file_type.."'")
+			vim.cmd("echo '"..parse_iabbrev_pr(inner_isas_dict).."'")
 -- --
 			require("isas.utils.abbrev.modules.isas_augroups").set_augroups(
 				"ISAS_"..u_dict,
@@ -133,7 +132,7 @@ function M.load_programming_dictionaries_at_startup()
 				parse_iabbrev_pr(inner_isas_dict)
 			)
 --
-			-- table.insert(M.loaded_dicts, u_dict)
+			table.insert(M.loaded_dicts, u_dict)
 		else
 			vim.cmd("echo 'Got here 1'")
 			local file_type = u_dict:gsub("pr_", "")
