@@ -123,7 +123,7 @@ function M.unload_dict(dict)
 
 end
 
-function M.load_programming_dictionaries_at_startup()
+function M.load_programming_dictionaries_at_startup(option)
 
 	local isas_langs_programming_list = require("isas.dictionaries.langs_programming.langs_programming_list").arguments
 	local user_langs_programming_list = opts["programming_dictionaries"]
@@ -143,28 +143,35 @@ function M.load_programming_dictionaries_at_startup()
 					end
 				end
 			end
-			require("isas.utils.abbrev.modules.isas_augroups").set_augroups(
-				"ISAS_"..u_dict,
-				"BufWinEnter",
-				"*."..file_type.." silent!",
-				parse_iabbrev_pr(inner_isas_dict)
-			)
+
+			if (option == "source") then
+				require("isas.utils.abbrev.modules.isas_augroups").set_augroups(
+					"ISAS_"..u_dict,
+					"BufWinEnter",
+					"*."..file_type.." silent!",
+					parse_iabbrev_pr(inner_isas_dict)
+				)
+				table.insert(M.loaded_dicts, u_dict)
+			end
+
 		else
-			require("isas.utils.abbrev.modules.isas_augroups").set_augroups(
-				"ISAS_"..u_dict,
-				"BufEnter",
-				"*"..file_type.." silent!",
-				parse_iabbrev_pr(user_langs_programming_list[u_dict])
-			)
+			if (option == "source") then
+				require("isas.utils.abbrev.modules.isas_augroups").set_augroups(
+					"ISAS_"..u_dict,
+					"BufEnter",
+					"*"..file_type.." silent!",
+					parse_iabbrev_pr(user_langs_programming_list[u_dict])
+				)
+				table.insert(M.loaded_dicts, u_dict)
+			end
 		end
 
-		table.insert(M.loaded_dicts, u_dict)
 
 	end
 
 end
 
-function M.load_natural_dictionaries_at_startup()
+function M.load_natural_dictionaries_at_startup(option)
 	for u_dict in pairs(user_dicts) do
 		if has_element(isas_dicts, u_dict, "value") then
 			local inner_isas_dict = require("isas.dictionaries.langs_natural."..u_dict)
@@ -178,15 +185,19 @@ function M.load_natural_dictionaries_at_startup()
 				end
 			end
 
-			for element in pairs(inner_isas_dict) do
-				map_iabbrev(element, inner_isas_dict[element])
+			if (option == "source") then
+				for element in pairs(inner_isas_dict) do
+					map_iabbrev(element, inner_isas_dict[element])
+				end
+				table.insert(M.loaded_dicts, u_dict)
 			end
-			table.insert(M.loaded_dicts, u_dict)
 		else
-			for element in pairs(user_dicts[u_dict]) do
-				map_iabbrev(element, user_dicts[u_dict][element])
+			if (option == "source") then
+				for element in pairs(user_dicts[u_dict]) do
+					map_iabbrev(element, user_dicts[u_dict][element])
+				end
+				table.insert(M.loaded_dicts, u_dict)
 			end
-			table.insert(M.loaded_dicts, u_dict)
 		end
 	end
 end

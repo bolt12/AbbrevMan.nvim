@@ -2,12 +2,12 @@
 
 local M = {}
 
-function M.load_natural_dictionaries_at_startup()
-	require("isas.utils.abbrev.modules.load_dictionaries").load_natural_dictionaries_at_startup()
+function M.load_natural_dictionaries_at_startup(option)
+	require("isas.utils.abbrev.modules.load_dictionaries").load_natural_dictionaries_at_startup(option)
 end
 
-function M.load_programming_dictionaries_at_startup()
-	require("isas.utils.abbrev.modules.load_dictionaries").load_programming_dictionaries_at_startup()
+function M.load_programming_dictionaries_at_startup(option)
+	require("isas.utils.abbrev.modules.load_dictionaries").load_programming_dictionaries_at_startup(option)
 end
 
 function M.load_dict(dict)

@@ -15,11 +15,15 @@ function M.main(option, command_option)
 			require("isas.init").setup_start_command()
 		elseif (command_option == "load_natural_dictionaries_at_startup") then
 			if (opts["load_natural_dictionaries_at_startup"] == true) then
-				require("isas.utils.abbrev.init").main("load_natural_dictionaries_at_startup")
+				require("isas.utils.abbrev.init").main("load_natural_dictionaries_at_startup", "source")
+			else
+				require("isas.utils.abbrev.init").main("load_natural_dictionaries_at_startup", "unsource")
 			end
 		elseif (command_option == "load_programming_dictionaries_at_startup") then
 			if (opts["load_programming_dictionaries_at_startup"] == true) then
-				require("isas.utils.abbrev.init").main("load_programming_dictionaries_at_startup")
+				require("isas.utils.abbrev.init").main("load_programming_dictionaries_at_startup", "source")
+			else
+				require("isas.utils.abbrev.init").main("load_programming_dictionaries_at_startup", "unsource")
 			end
 		else
 			-- nothing
