@@ -16,7 +16,8 @@ function M.available_commands()
 		M.arguments[dict_name] = dict_name
 	end
 
-	table.insert(M.arguments, vim.g.__isas_val)
+	-- table.insert(M.arguments, vim.g.__isas_val)
+	M.arguments[vim.g.__isas_val] = vim.g.__isas_val
 
 	return vim.tbl_keys(M.arguments)
 end
