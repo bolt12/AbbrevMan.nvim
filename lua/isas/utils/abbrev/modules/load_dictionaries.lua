@@ -194,6 +194,8 @@ function M.load_programming_dictionaries_at_startup(option)
 		end
 
 		local buffer_filetype = vim.api.nvim_eval([[expand('%:e')]])
+		vim.cmd("echo 'Buffer extension = "..buffer_filetype.."'")
+		vim.cmd("echo 'Dictionary extension = "..file_type.."'")
 
 		if (buffer_filetype == file_type) then
 			vim.cmd("echo 'They are the same!!'")
