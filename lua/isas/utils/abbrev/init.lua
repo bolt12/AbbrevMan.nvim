@@ -14,12 +14,10 @@ local function load_programming_dictionaries_at_startup()
 end
 
 local function load_dict(dict)
-	-- vim.cmd("echo '1 NEW DICT = "..dict.."'")
 	service.load_dict(dict)
 end
 
 local function unload_dict(dict)
-	-- vim.cmd("echo '1 NEW DICT = "..dict.."'")
 	service.unload_dict(dict)
 end
 
