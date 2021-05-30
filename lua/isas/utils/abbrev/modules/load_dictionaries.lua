@@ -37,6 +37,10 @@ local function has_element(table, element, type)
     return false
 end
 
+function M.available_commands()
+	return vim.tbl_keys(M.loaded_dicts)
+end
+
 local function remove_element_tbl(tbl, element)
 	for key, value in pairs(tbl) do
 		if (value == element) then
