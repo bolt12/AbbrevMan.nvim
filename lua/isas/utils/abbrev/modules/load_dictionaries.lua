@@ -109,17 +109,17 @@ function M.load_programming_dictionaries_at_startup()
 		if has_element(isas_langs_programming_list, u_dict, "value") then
 			vim.cmd("echo 'Got here'")
 
--- 			local inner_isas_dict = require("isas.dictionaries.langs_programming."..u_dict)
---
--- 			for element in pairs(inner_isas_dict) do
--- 				if has_element(user_langs_programming_list[u_dict], element, "index") then
--- 					if not (user_langs_programming_list[u_dict][element] == "rm_isas") then
--- 						inner_isas_dict[element] = user_langs_programming_list[u_dict][element]
--- 					else
--- 						inner_isas_dict[element] = nil -- remove element
--- 					end
--- 				end
--- 			end
+			local inner_isas_dict = require("isas.dictionaries.langs_programming."..u_dict)
+
+			for element in pairs(inner_isas_dict) do
+				if has_element(user_langs_programming_list[u_dict], element, "index") then
+					if not (user_langs_programming_list[u_dict][element] == "rm_isas") then
+						inner_isas_dict[element] = user_langs_programming_list[u_dict][element]
+					else
+						inner_isas_dict[element] = nil -- remove element
+					end
+				end
+			end
 --
 -- 			local file_type = u_dict:gsub("pr_", "")
 --
