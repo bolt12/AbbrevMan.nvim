@@ -21,6 +21,20 @@ local function has_element(table, element, type)
     return false
 end
 
+
+local function parse_iabbrev_pr(tabl)
+
+	local str_commands = ""
+
+	for index, value in pairs(tabl) do
+		local to_concat = "iabbrev "..index..[[ ]]..value
+		str_commands = str_commands.."|"..to_concat
+	end
+
+	return str_commands
+
+end
+
 local function map_iabbrev(element, replacement)
 	vim.cmd([[iabbrev ]]..element..[[ ]]..replacement)
 end
@@ -48,17 +62,26 @@ function M.load_dict(dict)
 		table.insert(M.loaded_dicts, dict)
 	elseif string.find(dict, "pr_") then
 
+		local file_type = dict:gsub("pr_", "")
 		local isas_langs_programming_list = require("isas.dictionaries.langs_programming.langs_programming_list").arguments
 		local user_langs_programming_list = opts["programming_dictionaries"]
 
 		if has_element(isas_langs_programming_list, dict, "value") then
-			for element in pairs(require("isas.dictionaries.langs_programming."..dict)) do
-				map_iabbrev(element, require("isas.dictionaries.langs_programming."..dict)[element])
-			end
+
+			require("isas.utils.abbrev.modules.isas_augroups").set_augroups(
+				"ISAS_"..dict,
+				"BufWinEnter",
+				"*."..file_type.." silent!",
+				parse_iabbrev_pr(require("isas.dictionaries.langs_programming."..dict))
+			)
+
 		elseif has_element(user_langs_programming_list, dict, "value") then
-			for element in pairs(user_langs_programming_list[dict]) do
-				map_iabbrev(element, user_langs_programming_list[dict][element])
-			end
+			require("isas.utils.abbrev.modules.isas_augroups").set_augroups(
+				"ISAS_"..dict,
+				"BufWinEnter",
+				"*."..file_type.." silent!",
+				parse_iabbrev_pr(require("isas.dictionaries.langs_programming."..dict))
+			)
 		end
 
 		table.insert(M.loaded_dicts, dict)
@@ -111,18 +134,6 @@ end
 --
 -- end
 
-local function parse_iabbrev_pr(tabl)
-
-	local str_commands = ""
-
-	for index, value in pairs(tabl) do
-		local to_concat = "iabbrev "..index..[[ ]]..value
-		str_commands = str_commands.."|"..to_concat
-	end
-
-	return str_commands
-
-end
 
 function M.load_programming_dictionaries_at_startup()
 
