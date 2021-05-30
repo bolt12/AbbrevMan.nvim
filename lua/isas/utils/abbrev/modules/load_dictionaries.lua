@@ -6,20 +6,6 @@ local opts = require("isas.config").options
 local isas_dicts = require("isas.dictionaries.langs_natural.langs_natural_list").arguments
 local user_dicts = opts["natural_dictionaries"]
 M.loaded_dicts = {}
-vim.g.__isas_list_loaded_dicts = ""
-
-local function append_glb_list()
-
-end
-
-
-local function remove_glb_list()
-
-end
-
-local function vimldict_to_luatbl(viml_dict)
-	return luaeval('g:__isas_list_loaded_dicts')
-end
 
 local function has_element(table, element, type)
 	if (type == "value") then
@@ -54,16 +40,17 @@ local function remove_element_tbl(tbl, element)
 	end
 end
 
-local function parse_iabbrev_pr(tabl)
+local function parse_iabbrev_pr(tabl, mode)
 
-	local str_commands = ""
+	if (mode == "global") then
+		local str_commands = ""
 
-	for index, value in pairs(tabl) do
-		local to_concat = "iabbrev "..index..[[ ]]..value
-		str_commands = str_commands.."|"..to_concat
+		for index, value in pairs(tabl) do
+			local to_concat = "iabbrev "..index..[[ ]]..value
+			str_commands = str_commands.."|"..to_concat
+		end
+		return str_commands
 	end
-
-	return str_commands
 
 end
 
@@ -104,7 +91,7 @@ function M.load_dict(dict)
 				"ISAS_"..dict,
 				"BufWinEnter",
 				"*."..file_type.." silent!",
-				parse_iabbrev_pr(require("isas.dictionaries.langs_programming."..dict))
+				parse_iabbrev_pr(require("isas.dictionaries.langs_programming."..dict), "global")
 			)
 
 		elseif has_element(user_langs_programming_list, dict, "value") then
@@ -112,7 +99,7 @@ function M.load_dict(dict)
 				"ISAS_"..dict,
 				"BufWinEnter",
 				"*."..file_type.." silent!",
-				parse_iabbrev_pr(require("isas.dictionaries.langs_programming."..dict))
+				parse_iabbrev_pr(require("isas.dictionaries.langs_programming."..dict), "global")
 			)
 		end
 
@@ -189,7 +176,7 @@ function M.load_programming_dictionaries_at_startup(option)
 					"ISAS_"..u_dict,
 					"BufWinEnter",
 					"*."..file_type.." silent!",
-					parse_iabbrev_pr(inner_isas_dict)
+					parse_iabbrev_pr(inner_isas_dict, "global")
 				)
 				table.insert(M.loaded_dicts, u_dict)
 			end
@@ -200,12 +187,17 @@ function M.load_programming_dictionaries_at_startup(option)
 					"ISAS_"..u_dict,
 					"BufEnter",
 					"*"..file_type.." silent!",
-					parse_iabbrev_pr(user_langs_programming_list[u_dict])
+					parse_iabbrev_pr(user_langs_programming_list[u_dict], "global")
 				)
 				table.insert(M.loaded_dicts, u_dict)
 			end
 		end
 
+		local buffer_filetype = vim.api.nvim_eval([[expand('%:e')]])
+
+		if (buffer_filetype == file_type) then
+			vim.cmd("echo 'They are the same!!'")
+		end
 
 	end
 
