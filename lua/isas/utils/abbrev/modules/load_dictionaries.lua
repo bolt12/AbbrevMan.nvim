@@ -92,48 +92,36 @@ function M.load_dict(dict)
 end
 --
 function M.unload_dict(dict)
+
+	local isas_langs_natural_list = require("isas.dictionaries.langs_natural.langs_natural_list").arguments
+	local user_langs_natural_list = opts["natural_dictionaries"]
+	local isas_langs_programming_list = require("isas.dictionaries.langs_programming.langs_programming_list").arguments
+	local user_langs_programming_list = opts["programming_dictionaries"]
+
+
 	if has_element(M.loaded_dicts, dict, "value") then
-		if has_element(isas_dicts, dict, "value") then
-			for element in pairs(require("isas.dictionaries.langs_natural."..dict)) do
-				unmap_iabbrev(element)
+		if string.find(dict, "nt_") then
+			if has_element(isas_langs_natural_list, dict, "value") then
+				for element in pairs(require("isas.dictionaries.langs_natural."..dict)) do
+					unmap_iabbrev(element)
+				end
+			elseif has_element(user_langs_natural_list, dict, "value") then
+				for element in pairs(require(user_langs_natural_list[dict])) do
+					unmap_iabbrev(element)
+				end
 			end
-		elseif has_element(user_dicts, dict, "value") then
-			for element in pairs(user_dicts[dict]) do
-				unmap_iabbrev(element)
+		elseif string.find(dict, "pr_") then
+			if has_element(user_langs_programming_list, dict, "value") then
+				require("isas.utils.abbrev.modules.isas_augroups").unset_augroup("ISAS_"..dict)
+			elseif has_element(isas_langs_programming_list, dict, "value") then
+				require("isas.utils.abbrev.modules.isas_augroups").unset_augroup("ISAS_"..dict)
 			end
 		end
+	else
+		vim.cmd("echo 'Invalid argument, dictionary must have a nt_ or a pr_ prefix'")
 	end
+
 end
-
--- function M.mutable_load_at_startup(user_dictionary, isas_dictionary, lang_type)
---
--- 	for u_dict in pairs(user_dictionary) do
--- 		if has_element(isas_dictionary, u_dict, "value") then
--- 			local inner_isas_dictionary = require("isas.dictionaries."..lang_type.."."..u_dict)
--- 			for element in pairs(inner_isas_dictionary) do
--- 				if has_element(user_dictionary[u_dict], element, "index") then
--- 					if not (user_dictionary[u_dict][element] == "rm_isas") then
--- 						inner_isas_dictionary[element] = user_dictionary[u_dict][element]
--- 					else
--- 						inner_isas_dictionary[element] = nil -- remove element
--- 					end
--- 				end
--- 			end
---
--- 			for element in pairs(inner_isas_dict) do
--- 				map_iabbrev(element, inner_isas_dict[element])
--- 			end
--- 			table.insert(M.loaded_dicts, u_dict)
--- 		else
---
--- 		end
--- 	end
--- end
-
--- function M.load_natural_dictionaries_at_startup()
---
--- end
-
 
 function M.load_programming_dictionaries_at_startup()
 
