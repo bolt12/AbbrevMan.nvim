@@ -10,7 +10,7 @@ local function load_natural_dictionaries_at_startup()
 end
 
 local function load_programming_dictionaries_at_startup()
-	-- service.load_programming_dictionaries_at_startup()
+	service.load_programming_dictionaries_at_startup()
 end
 
 local function load_dict(dict)
