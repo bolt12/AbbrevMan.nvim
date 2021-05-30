@@ -21,6 +21,13 @@ local function has_element(table, element, type)
     return false
 end
 
+local function remove_element_tbl(tbl, element)
+	for key, value in pairs(tbl) do
+		if (value == element) then
+			tbl[key] = nil
+		end
+	end
+end
 
 local function parse_iabbrev_pr(tabl)
 
@@ -118,7 +125,7 @@ function M.unload_dict(dict)
 			end
 		end
 
-		vim.cmd("echo 'Dict = "..tostring(M.loaded_dicts[dict]).."'")
+		remove_element_tbl(M.loaded_dicts, dict)
 	else
 		vim.cmd("echo 'Invalid argument, dictionary must have a nt_ or a pr_ prefix'")
 	end
