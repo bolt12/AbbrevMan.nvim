@@ -125,7 +125,8 @@ function M.unload_dict(dict)
 			end
 		end
 
-		-- remove_element_tbl(M.loaded_dicts, dict)
+		vim.cmd("echo 'Dict = "..dict.."'")
+		remove_element_tbl(M.loaded_dicts, dict)
 		for key, value in pairs(M.loaded_dicts) do
 			vim.cmd("echo 'Key = "..key.."; Value = "..value.."'")
 
