@@ -126,7 +126,7 @@ function M.load_programming_dictionaries_at_startup()
 			require("isas.utils.abbrev.modules.isas_augroups").set_augroups(
 				"ISAS_"..u_dict,
 				"BufWinEnter",
-				"*."..file_type,
+				"*."..file_type.." silent!",
 				parse_iabbrev_pr(inner_isas_dict)
 			)
 -- --
@@ -134,7 +134,7 @@ function M.load_programming_dictionaries_at_startup()
 			require("isas.utils.abbrev.modules.isas_augroups").set_augroups(
 				"ISAS_"..u_dict,
 				"BufEnter",
-				"*"..file_type,
+				"*"..file_type.." silent!",
 				parse_iabbrev_pr(user_langs_programming_list[u_dict])
 			)
 		end
