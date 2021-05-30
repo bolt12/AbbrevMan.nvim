@@ -19,7 +19,8 @@ function M.available_commands()
 end
 
 function M.runtime_path()
-	return vim.api.nvim_eval("expand('<sfile>:p')")
+	-- return vim.api.nvim_eval("expand('<sfile>:p')")
+	return vim.api.nvim_eval("get(g:, '__isas_main_path', 0)")
 end
 
 

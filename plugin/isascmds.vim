@@ -8,6 +8,11 @@ if exists('g:loaded_isas') | finish | endif
 let s:save_cpo = &cpo " save user coptions
 set cpo&vim " reset them to defaults
 
+
+" Vars {{{
+let g:__isas_main_path = expand('<sfile>:p:h')
+" }}}
+
 " Utils {{{
 function! isascmds#get_first_arg(...)
 	return "".get(a:, 1, 1).""
