@@ -118,7 +118,7 @@ function M.unload_dict(dict)
 			end
 		end
 
-		M.loaded_dicts[dict] = nil
+		vim.cmd("echo 'Dict = "..tostring(M.loaded_dicts[dict]).."'")
 	else
 		vim.cmd("echo 'Invalid argument, dictionary must have a nt_ or a pr_ prefix'")
 	end
