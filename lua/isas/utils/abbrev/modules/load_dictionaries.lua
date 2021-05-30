@@ -106,19 +106,11 @@ function M.load_programming_dictionaries_at_startup()
 	local isas_langs_programming_list = require("isas.dictionaries.langs_programming.langs_programming_list").arguments
 	local user_langs_programming_list = opts["programming_dictionaries"]
 
-
--- 	for key in pairs(isas_langs_programming_list) do
--- 		vim.cmd("echo 'Key = "..key.."'")
--- 	end
---
---
--- 	for u_dict in pairs(user_langs_programming_list) do
--- 		vim.cmd("echo 'U dict = "..u_dict.."'")
--- 	end
-
 	for u_dict in pairs(user_langs_programming_list) do
+
+		local file_type = u_dict:gsub("pr_", "")
+
 		if has_element(isas_langs_programming_list, u_dict, "value") then
-			vim.cmd("echo 'Got here'")
 --
 			local inner_isas_dict = require("isas.dictionaries.langs_programming."..u_dict)
 --
@@ -132,10 +124,6 @@ function M.load_programming_dictionaries_at_startup()
 				end
 			end
 -- --
-			local file_type = u_dict:gsub("pr_", "")
-			-- vim.cmd("echo '"..file_type.."'")
-			-- vim.cmd("echo '"..parse_iabbrev_pr(inner_isas_dict).."'")
--- -- --
 			require("isas.utils.abbrev.modules.isas_augroups").set_augroups(
 				"ISAS_"..u_dict,
 				"BufWinEnter",
@@ -143,19 +131,16 @@ function M.load_programming_dictionaries_at_startup()
 				parse_iabbrev_pr(inner_isas_dict)
 			)
 -- --
-			table.insert(M.loaded_dicts, u_dict)
 		else
-			vim.cmd("echo 'Got here 1'")
-			local file_type = u_dict:gsub("pr_", "")
---
 			require("isas.utils.abbrev.modules.isas_augroups").set_augroups(
 				"ISAS_"..u_dict,
 				"BufEnter",
 				"*"..file_type,
 				parse_iabbrev_pr(user_langs_programming_list[u_dict])
 			)
-			table.insert(M.loaded_dicts, u_dict)
 		end
+
+		table.insert(M.loaded_dicts, u_dict)
 
 	end
 
