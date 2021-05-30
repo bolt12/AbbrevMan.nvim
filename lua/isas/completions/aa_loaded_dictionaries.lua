@@ -18,6 +18,9 @@ function M.available_commands()
 	return vim.tbl_keys(M.arguments)
 end
 
+function M.runtime_path()
+	return vim.api.nvim_eval("expand('<sfile>:p')")
+end
 
 
 return M

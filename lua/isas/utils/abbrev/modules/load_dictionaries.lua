@@ -4,9 +4,24 @@ local M = {}
 
 local opts = require("isas.config").options
 local aa_ld = require("isas.completions.aa_loaded_dictionaries").loaded_dictionaries
+local aa_ld0 = require("isas.completions.aa_loaded_dictionaries")
 local isas_dicts = require("isas.dictionaries.langs_natural.langs_natural_list").arguments
 local user_dicts = opts["natural_dictionaries"]
 M.loaded_dicts = {}
+vim.g.__isas_list_loaded_dicts = ""
+
+local function append_glb_list()
+
+end
+
+
+local function remove_glb_list()
+
+end
+
+local function vimldict_to_luatbl(viml_dict)
+	return luaeval('g:__isas_list_loaded_dicts')
+end
 
 local function has_element(table, element, type)
 	if (type == "value") then
@@ -129,12 +144,14 @@ function M.unload_dict(dict)
 		end
 
 		vim.cmd("echo 'Dict = "..dict.."'")
-		-- remove_element_tbl(M.loaded_dicts, dict)
+		remove_element_tbl(M.loaded_dicts, dict)
 		remove_element_tbl(aa_ld, dict)
 		for key, value in pairs(M.loaded_dicts) do
 			vim.cmd("echo 'Key = "..key.."; Value = "..value.."'")
 
 		end
+
+		vim.cmd("echo 'Runtime path = "..aa_ld0.runtime_path().."'")
 	else
 		vim.cmd("echo 'Invalid argument, dictionary must have a nt_ or a pr_ prefix'")
 	end
