@@ -152,6 +152,11 @@ function M.load_programming_dictionaries_at_startup()
 end
 
 function M.load_natural_dictionaries_at_startup()
+
+	for key in pairs(isas_dicts) do
+		vim.cmd("echo 'Key = "..key.."'")
+	end
+
 	for u_dict in pairs(user_dicts) do
 		if has_element(isas_dicts, u_dict, "value") then
 			local inner_isas_dict = require("isas.dictionaries.langs_natural."..u_dict)
