@@ -18,3 +18,7 @@ The app must:
 	1. Prepare table
 	2. Pass table to func and func will parse them all into one string separated by pipes
 	3. Pass it to isas_augroup module
+
+
+TODO Tommorrow:
+	1. try to figure out what's up with config.set_options(), because it's not mapping them properly
