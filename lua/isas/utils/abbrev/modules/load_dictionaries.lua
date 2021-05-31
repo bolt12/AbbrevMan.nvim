@@ -80,60 +80,66 @@ local function unmap_iabbrev(element, scope)
 end
 
 function M.load_dict(dict)
-	if string.find(dict, "nt_") then
 
-		local isas_langs_natural_list = require("isas.dictionaries.langs_natural.langs_natural_list").arguments
-		local user_langs_natural_list = opts["natural_dictionaries"]
+	if not has_element(M.loaded_dicts, dict, "value") then
 
-		if has_element(isas_langs_natural_list, dict, "value") then
-			for element in pairs(require("isas.dictionaries.langs_natural."..dict)) do
-				map_iabbrev(element, require("isas.dictionaries.langs_natural."..dict)[element])
+		if string.find(dict, "nt_") then
+
+			local isas_langs_natural_list = require("isas.dictionaries.langs_natural.langs_natural_list").arguments
+			local user_langs_natural_list = opts["natural_dictionaries"]
+
+			if has_element(isas_langs_natural_list, dict, "value") then
+				for element in pairs(require("isas.dictionaries.langs_natural."..dict)) do
+					map_iabbrev(element, require("isas.dictionaries.langs_natural."..dict)[element])
+				end
+			elseif has_element(user_langs_natural_list, dict, "value") then
+				for element in pairs(user_langs_natural_list[dict]) do
+					map_iabbrev(element, user_langs_natural_list[dict][element])
+				end
 			end
-		elseif has_element(user_langs_natural_list, dict, "value") then
-			for element in pairs(user_langs_natural_list[dict]) do
-				map_iabbrev(element, user_langs_natural_list[dict][element])
+
+			table.insert(M.loaded_dicts, dict)
+		elseif string.find(dict, "pr_") then
+
+			local file_type = dict:gsub("pr_", "")
+			local isas_langs_programming_list = require("isas.dictionaries.langs_programming.langs_programming_list").arguments
+			local user_langs_programming_list = opts["programming_dictionaries"]
+
+			if has_element(isas_langs_programming_list, dict, "value") then
+
+				require("isas.utils.abbrev.modules.isas_augroups").set_augroups(
+					"ISAS_"..dict,
+					"BufWinEnter",
+					"*."..file_type.." silent!",
+					parse_iabbrev_pr(require("isas.dictionaries.langs_programming."..dict), "buffer")
+				)
+
+				local buffer_filetype = vim.api.nvim_eval([[expand('%:e')]])
+				if (buffer_filetype == file_type) then
+					cmd([[]]..parse_iabbrev_pr(require("isas.dictionaries.langs_programming."..dict), "buffer")..[[]])
+				end
+
+			elseif has_element(user_langs_programming_list, dict, "value") then
+				require("isas.utils.abbrev.modules.isas_augroups").set_augroups(
+					"ISAS_"..dict,
+					"BufWinEnter",
+					"*."..file_type.." silent!",
+					parse_iabbrev_pr(require("isas.dictionaries.langs_programming."..dict), "buffer")
+				)
+
+				local buffer_filetype = vim.api.nvim_eval([[expand('%:e')]])
+				if (buffer_filetype == file_type) then
+					cmd([[]]..parse_iabbrev_pr(user_langs_programming_list[dict], "buffer")..[[]])
+				end
+
 			end
+
+			table.insert(M.loaded_dicts, dict)
+		else
+			cmd("echo 'Invalid argument, dictionary must have a nt_ or a pr_ prefix'")
 		end
-
-		table.insert(M.loaded_dicts, dict)
-	elseif string.find(dict, "pr_") then
-
-		local file_type = dict:gsub("pr_", "")
-		local isas_langs_programming_list = require("isas.dictionaries.langs_programming.langs_programming_list").arguments
-		local user_langs_programming_list = opts["programming_dictionaries"]
-
-		if has_element(isas_langs_programming_list, dict, "value") then
-
-			require("isas.utils.abbrev.modules.isas_augroups").set_augroups(
-				"ISAS_"..dict,
-				"BufWinEnter",
-				"*."..file_type.." silent!",
-				parse_iabbrev_pr(require("isas.dictionaries.langs_programming."..dict), "buffer")
-			)
-
-			local buffer_filetype = vim.api.nvim_eval([[expand('%:e')]])
-			if (buffer_filetype == file_type) then
-				cmd([[]]..parse_iabbrev_pr(require("isas.dictionaries.langs_programming."..dict), "buffer")..[[]])
-			end
-
-		elseif has_element(user_langs_programming_list, dict, "value") then
-			require("isas.utils.abbrev.modules.isas_augroups").set_augroups(
-				"ISAS_"..dict,
-				"BufWinEnter",
-				"*."..file_type.." silent!",
-				parse_iabbrev_pr(require("isas.dictionaries.langs_programming."..dict), "buffer")
-			)
-
-			local buffer_filetype = vim.api.nvim_eval([[expand('%:e')]])
-			if (buffer_filetype == file_type) then
-				cmd([[]]..parse_iabbrev_pr(user_langs_programming_list[dict], "buffer")..[[]])
-			end
-
-		end
-
-		table.insert(M.loaded_dicts, dict)
 	else
-		cmd("echo 'Invalid argument, dictionary must have a nt_ or a pr_ prefix'")
+		vim.cmd("echo 'The dictionary you are trying to load has already been loaded or does not exist")
 	end
 
 end
