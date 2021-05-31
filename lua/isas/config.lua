@@ -6,7 +6,11 @@ config.options = {
 	load_natural_dictionaries_at_startup = true,
 	load_programming_dictionaries_at_startup = true,
 	natural_dictionaries = {
-		["nt_en"] = {}
+		["nt_en"] = {},
+		["nt_pt"] = {
+			permutation_enabled = false,
+			normal_enabled = false,
+		}
 	},
 	programming_dictionaries = {
 		["pr_py"] = {}

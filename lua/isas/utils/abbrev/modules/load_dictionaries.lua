@@ -6,6 +6,7 @@ local cmd = vim.cmd
 local api = vim.api
 
 local opts = require("isas.config").options
+local permutation = require("isas.utils.abbrev.modules.permutation")
 local isas_dicts = require("isas.dictionaries.langs_natural.langs_natural_list").arguments
 local user_dicts = opts["natural_dictionaries"]
 M.loaded_dicts = {}
@@ -25,8 +26,40 @@ local function has_element(table, element, type)
     return false
 end
 
+local function str_to_tbl(string)
+
+	local tbl = {}
+
+	for i = 1, #string do
+		local char = string:sub(i,i)
+		table.insert(tbl, char)
+	end
+
+	return tbl
+end
+
+local function tbl_to_str(tbl)
+
+	local str = ""
+
+	for key, value in pairs(tbl) do
+		str = str..value
+	end
+
+	return str
+end
+
 local function map_iabbrev(element, replacement)
 	cmd([[iabbrev ]]..element..[[ ]]..replacement)
+end
+
+local function map_iabbrev_permutation(element)
+	local i = 0
+
+	for p in permutation.perm(str_to_tbl(element)) do
+		cmd([[iabbrev ]]..tbl_to_str(p)..[[ ]]..element)
+		i = i + 1
+	end
 end
 
 local function unmap_iabbrev(element, scope)
@@ -184,7 +217,9 @@ function M.load_programming_dictionaries_at_startup(option)
 		local file_type = u_dict:gsub("pr_", "")
 
 		if has_element(isas_langs_programming_list, u_dict, "value") then
+
 			local inner_isas_dict = require("isas.dictionaries.langs_programming."..u_dict)
+
 			for element in pairs(inner_isas_dict) do
 				if has_element(user_langs_programming_list[u_dict], element, "index") then
 					if not (user_langs_programming_list[u_dict][element] == "rm_isas") then
@@ -224,30 +259,59 @@ end
 function M.load_natural_dictionaries_at_startup(option)
 	for u_dict in pairs(user_dicts) do
 		if has_element(isas_dicts, u_dict, "value") then
+
 			local inner_isas_dict = require("isas.dictionaries.langs_natural."..u_dict)
-			for element in pairs(inner_isas_dict) do
-				if has_element(user_dicts[u_dict], element, "index") then
-					if not (user_dicts[u_dict][element] == "rm_isas") then
-						inner_isas_dict[element] = user_dicts[u_dict][element]
+			local perm_status = opts["natural_dictionaries"][u_dict]["permutation_enabled"]
+			local nrml_status = opts["natural_dictionaries"][u_dict]["normal_enabled"]
+
+
+
+
+
+			for element in pairs(inner_isas_dict.normal) do
+				if has_element(user_dicts[u_dict]["normal"], element, "index") then
+					if not (user_dicts[u_dict]["normal"][element] == "rm_isas") then
+						inner_isas_dict.normal[element] = user_dicts[u_dict]["normal"][element]
 					else
-						inner_isas_dict[element] = nil -- remove element
+						inner_isas_dict.normal[element] = nil -- remove element
 					end
 				end
 			end
 
-			if (option == "source") then
-				for element in pairs(inner_isas_dict) do
-					map_iabbrev(element, inner_isas_dict[element])
+			for element in pairs(inner_isas_dict.permutate) do
+				if has_element(user_dicts[u_dict]["permutate"], element, "index") then
+					if not (user_dicts[u_dict]["permutate"][element] == "rm_isas") then
+						inner_isas_dict.permutate[element] = user_dicts[u_dict]["permutate"][element]
+					else
+						inner_isas_dict.permutate[element] = nil -- remove element
+					end
 				end
-				table.insert(M.loaded_dicts, u_dict)
+			end
+
+
+
+
+			if (option == "source") then
+				if (nrml_status ~= nil and nrml_status == true) then
+					for element in pairs(inner_isas_dict.normal) do
+						map_iabbrev(element, inner_isas_dict.normal[element])
+					end
+					table.insert(M.loaded_dicts, u_dict)
+				elseif (perm_status ~= nil and perm_status == true) then
+					for element in pairs(inner_isas_dict.permutate) do
+						map_iabbrev_permutation(element)
+					end
+					table.insert(M.loaded_dicts, u_dict)
+				end
 			end
 		else
-			if (option == "source") then
-				for element in pairs(user_dicts[u_dict]) do
-					map_iabbrev(element, user_dicts[u_dict][element])
-				end
-				table.insert(M.loaded_dicts, u_dict)
-			end
+			vim.cmd("Nohing happened")
+			-- if (option == "source") then
+			-- 	for element in pairs(user_dicts[u_dict]) do
+			-- 		map_iabbrev(element, user_dicts[u_dict][element])
+			-- 	end
+			-- 	table.insert(M.loaded_dicts, u_dict)
+			-- end
 		end
 	end
 end
