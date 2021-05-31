@@ -5,8 +5,8 @@ local M = {}
 local cmd = vim.cmd
 local api = vim.api
 
-local opts = require("isas.config").options
-local isas_dicts = require("isas.dictionaries.langs_natural.langs_natural_list").arguments
+local opts = require("abbrev-man.config").options
+local am_dicts = require("abbrev-man.dictionaries.langs_natural.langs_natural_list").arguments
 local user_dicts = opts["natural_dictionaries"]
 M.loaded_dicts = {}
 
@@ -76,12 +76,12 @@ function M.load_dict(dict)
 
 		if string.find(dict, "nt_") then
 
-			local isas_langs_natural_list = require("isas.dictionaries.langs_natural.langs_natural_list").arguments
+			local am_langs_natural_list = require("abbrev-man.dictionaries.langs_natural.langs_natural_list").arguments
 			local user_langs_natural_list = opts["natural_dictionaries"]
 
-			if has_element(isas_langs_natural_list, dict, "value") then
-				for element in pairs(require("isas.dictionaries.langs_natural."..dict)) do
-					map_iabbrev(element, require("isas.dictionaries.langs_natural."..dict)[element])
+			if has_element(am_langs_natural_list, dict, "value") then
+				for element in pairs(require("abbrev-man.dictionaries.langs_natural."..dict)) do
+					map_iabbrev(element, require("abbrev-man.dictionaries.langs_natural."..dict)[element])
 				end
 			elseif has_element(user_langs_natural_list, dict, "value") then
 				for element in pairs(user_langs_natural_list[dict]) do
@@ -93,29 +93,29 @@ function M.load_dict(dict)
 		elseif string.find(dict, "pr_") then
 
 			local file_type = dict:gsub("pr_", "")
-			local isas_langs_programming_list = require("isas.dictionaries.langs_programming.langs_programming_list").arguments
+			local am_langs_programming_list = require("abbrev-man.dictionaries.langs_programming.langs_programming_list").arguments
 			local user_langs_programming_list = opts["programming_dictionaries"]
 
-			if has_element(isas_langs_programming_list, dict, "value") then
+			if has_element(am_langs_programming_list, dict, "value") then
 
-				require("isas.utils.abbrev.modules.isas_augroups").set_augroups(
-					"ISAS_"..dict,
+				require("abbrev-man.utils.abbrev.modules.am_augroups").set_augroups(
+					"am_"..dict,
 					"BufWinEnter",
 					"*."..file_type.." silent!",
-					parse_iabbrev_pr(require("isas.dictionaries.langs_programming."..dict), "buffer")
+					parse_iabbrev_pr(require("abbrev-man.dictionaries.langs_programming."..dict), "buffer")
 				)
 
 				local buffer_filetype = api.nvim_eval([[expand('%:e')]])
 				if (buffer_filetype == file_type) then
-					cmd([[]]..parse_iabbrev_pr(require("isas.dictionaries.langs_programming."..dict), "buffer")..[[]])
+					cmd([[]]..parse_iabbrev_pr(require("abbrev-man.dictionaries.langs_programming."..dict), "buffer")..[[]])
 				end
 
 			elseif has_element(user_langs_programming_list, dict, "value") then
-				require("isas.utils.abbrev.modules.isas_augroups").set_augroups(
-					"ISAS_"..dict,
+				require("abbrev-man.utils.abbrev.modules.am_augroups").set_augroups(
+					"am_"..dict,
 					"BufWinEnter",
 					"*."..file_type.." silent!",
-					parse_iabbrev_pr(require("isas.dictionaries.langs_programming."..dict), "buffer")
+					parse_iabbrev_pr(require("abbrev-man.dictionaries.langs_programming."..dict), "buffer")
 				)
 
 				local buffer_filetype = api.nvim_eval([[expand('%:e')]])
@@ -137,15 +137,15 @@ end
 
 function M.unload_dict(dict)
 
-	local isas_langs_natural_list = require("isas.dictionaries.langs_natural.langs_natural_list").arguments
-	local isas_langs_programming_list = require("isas.dictionaries.langs_programming.langs_programming_list").arguments
+	local am_langs_natural_list = require("abbrev-man.dictionaries.langs_natural.langs_natural_list").arguments
+	local am_langs_programming_list = require("abbrev-man.dictionaries.langs_programming.langs_programming_list").arguments
 	local user_langs_natural_list = opts["natural_dictionaries"]
 	local user_langs_programming_list = opts["programming_dictionaries"]
 
 	if has_element(M.loaded_dicts, dict, "value") then
 		if string.find(dict, "nt_") then
-			if has_element(isas_langs_natural_list, dict, "value") then
-				for element in pairs(require("isas.dictionaries.langs_natural."..dict)) do
+			if has_element(am_langs_natural_list, dict, "value") then
+				for element in pairs(require("abbrev-man.dictionaries.langs_natural."..dict)) do
 					unmap_iabbrev(element)
 				end
 			elseif has_element(user_langs_natural_list, dict, "value") then
@@ -154,13 +154,13 @@ function M.unload_dict(dict)
 				end
 			end
 		elseif string.find(dict, "pr_") then
-			if has_element(isas_langs_programming_list, dict, "value") then
-				require("isas.utils.abbrev.modules.isas_augroups").unset_augroup("ISAS_"..dict)
-				for element in pairs(require("isas.dictionaries.langs_programming."..dict)) do
+			if has_element(am_langs_programming_list, dict, "value") then
+				require("abbrev-man.utils.abbrev.modules.am_augroups").unset_augroup("am_"..dict)
+				for element in pairs(require("abbrev-man.dictionaries.langs_programming."..dict)) do
 					unmap_iabbrev(element, "buffer")
 				end
 			elseif has_element(user_langs_programming_list, dict, "value") then
-				require("isas.utils.abbrev.modules.isas_augroups").unset_augroup("ISAS_"..dict)
+				require("abbrev-man.utils.abbrev.modules.am_augroups").unset_augroup("am_"..dict)
 				for element in pairs(require(user_langs_programming_list[dict])) do
 					unmap_iabbrev(element, "buffer")
 				end
@@ -176,31 +176,31 @@ end
 
 function M.load_programming_dictionaries_at_startup(option)
 
-	local isas_langs_programming_list = require("isas.dictionaries.langs_programming.langs_programming_list").arguments
+	local am_langs_programming_list = require("abbrev-man.dictionaries.langs_programming.langs_programming_list").arguments
 	local user_langs_programming_list = opts["programming_dictionaries"]
 
 	for u_dict in pairs(user_langs_programming_list) do
 
 		local file_type = u_dict:gsub("pr_", "")
 
-		if has_element(isas_langs_programming_list, u_dict, "value") then
-			local inner_isas_dict = require("isas.dictionaries.langs_programming."..u_dict)
-			for element in pairs(inner_isas_dict) do
+		if has_element(am_langs_programming_list, u_dict, "value") then
+			local inner_am_dict = require("abbrev-man.dictionaries.langs_programming."..u_dict)
+			for element in pairs(inner_am_dict) do
 				if has_element(user_langs_programming_list[u_dict], element, "index") then
 					if not (user_langs_programming_list[u_dict][element] == "rm_isas") then
-						inner_isas_dict[element] = user_langs_programming_list[u_dict][element]
+						inner_am_dict[element] = user_langs_programming_list[u_dict][element]
 					else
-						inner_isas_dict[element] = nil -- remove element
+						inner_am_dict[element] = nil -- remove element
 					end
 				end
 			end
 
 			if (option == "source") then
-				require("isas.utils.abbrev.modules.isas_augroups").set_augroups(
-					"ISAS_"..u_dict,
+				require("abbrev-man.utils.abbrev.modules.am_augroups").set_augroups(
+					"am_"..u_dict,
 					"BufWinEnter",
 					"*."..file_type.." silent!",
-					parse_iabbrev_pr(inner_isas_dict, "buffer")
+					parse_iabbrev_pr(inner_am_dict, "buffer")
 				)
 
 				table.insert(M.loaded_dicts, u_dict)
@@ -208,8 +208,8 @@ function M.load_programming_dictionaries_at_startup(option)
 
 		else
 			if (option == "source") then
-				require("isas.utils.abbrev.modules.isas_augroups").set_augroups(
-					"ISAS_"..u_dict,
+				require("abbrev-man.utils.abbrev.modules.am_augroups").set_augroups(
+					"am_"..u_dict,
 					"BufEnter",
 					"*"..file_type.." silent!",
 					parse_iabbrev_pr(user_langs_programming_list[u_dict], "buffer")
@@ -223,21 +223,21 @@ end
 
 function M.load_natural_dictionaries_at_startup(option)
 	for u_dict in pairs(user_dicts) do
-		if has_element(isas_dicts, u_dict, "value") then
-			local inner_isas_dict = require("isas.dictionaries.langs_natural."..u_dict)
-			for element in pairs(inner_isas_dict) do
+		if has_element(am_dicts, u_dict, "value") then
+			local inner_am_dict = require("abbrev-man.dictionaries.langs_natural."..u_dict)
+			for element in pairs(inner_am_dict) do
 				if has_element(user_dicts[u_dict], element, "index") then
 					if not (user_dicts[u_dict][element] == "rm_isas") then
-						inner_isas_dict[element] = user_dicts[u_dict][element]
+						inner_am_dict[element] = user_dicts[u_dict][element]
 					else
-						inner_isas_dict[element] = nil -- remove element
+						inner_am_dict[element] = nil -- remove element
 					end
 				end
 			end
 
 			if (option == "source") then
-				for element in pairs(inner_isas_dict) do
-					map_iabbrev(element, inner_isas_dict[element])
+				for element in pairs(inner_am_dict) do
+					map_iabbrev(element, inner_am_dict[element])
 				end
 				table.insert(M.loaded_dicts, u_dict)
 			end

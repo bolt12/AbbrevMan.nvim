@@ -3,7 +3,7 @@
 local M = {}
 
 
-local service = require("isas.utils.abbrev.service")
+local service = require("abbrev-man.utils.abbrev.service")
 
 local function load_natural_dictionaries_at_startup(option)
 	service.load_natural_dictionaries_at_startup(option)

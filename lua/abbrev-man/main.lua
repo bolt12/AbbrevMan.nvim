@@ -2,8 +2,8 @@
 
 local M = {}
 
-local opts = require("isas.config").options
-local abbrev = require("isas.utils.abbrev.init")
+local opts = require("abbrev-man.config").options
+local abbrev = require("abbrev-man.utils.abbrev.init")
 
 
 function M.main(option, command_option)

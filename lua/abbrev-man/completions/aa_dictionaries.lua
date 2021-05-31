@@ -4,8 +4,8 @@ local M = {}
 
 M.arguments = {}
 
-local langs_natural_list = require("isas.dictionaries.langs_natural.langs_natural_list").arguments
-local langs_programming_list = require("isas.dictionaries.langs_programming.langs_programming_list").arguments
+local langs_natural_list = require("abbrev-man.dictionaries.langs_natural.langs_natural_list").arguments
+local langs_programming_list = require("abbrev-man.dictionaries.langs_programming.langs_programming_list").arguments
 
 function M.available_commands()
 
