@@ -139,7 +139,7 @@ function M.load_dict(dict)
 			cmd("echo 'Invalid argument, dictionary must have a nt_ or a pr_ prefix'")
 		end
 	else
-		vim.cmd("echo 'The dictionary you are trying to load has already been loaded or does not exist")
+		vim.cmd("echo 'The dictionary you are trying to load has already been loaded or does not exist'")
 	end
 
 end
