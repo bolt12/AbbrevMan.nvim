@@ -224,6 +224,7 @@ end
 function M.load_natural_dictionaries_at_startup(option)
 	for u_dict in pairs(user_dicts) do
 		if has_element(am_dicts, u_dict, "value") then
+			cmd("echo 'Dict = "..tostring(u_dict).."'")
 			local inner_am_dict = require("abbrev-man.dictionaries.langs_natural."..u_dict)
 			for element in pairs(inner_am_dict) do
 				if has_element(user_dicts[u_dict], element, "index") then
