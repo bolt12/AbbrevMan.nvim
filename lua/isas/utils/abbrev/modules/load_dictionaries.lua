@@ -111,6 +111,13 @@ function M.load_dict(dict)
 				"*."..file_type.." silent!",
 				parse_iabbrev_pr(require("isas.dictionaries.langs_programming."..dict), "global")
 			)
+
+-- 			local buffer_filetype = vim.api.nvim_eval([[expand('%:e')]])
+--
+-- 			if (buffer_filetype == file_type) then
+-- 				parse_iabbrev_pr(user_langs_programming_list[dict], "buffer")
+-- 			end
+
 		end
 
 		table.insert(M.loaded_dicts, dict)
@@ -195,11 +202,11 @@ function M.load_programming_dictionaries_at_startup(option)
 					parse_iabbrev_pr(inner_isas_dict, "global")
 				)
 
-				local buffer_filetype = vim.api.nvim_eval([[expand('%:e')]])
-
-				if (buffer_filetype == file_type) then
-					parse_iabbrev_pr(inner_isas_dict, "buffer")
-				end
+-- 				local buffer_filetype = vim.api.nvim_eval([[expand('%:e')]])
+--
+-- 				if (buffer_filetype == file_type) then
+-- 					parse_iabbrev_pr(inner_isas_dict, "buffer")
+-- 				end
 
 				table.insert(M.loaded_dicts, u_dict)
 			end
@@ -213,11 +220,11 @@ function M.load_programming_dictionaries_at_startup(option)
 					parse_iabbrev_pr(user_langs_programming_list[u_dict], "global")
 				)
 
-				local buffer_filetype = vim.api.nvim_eval([[expand('%:e')]])
-
-				if (buffer_filetype == file_type) then
-					parse_iabbrev_pr(user_langs_programming_list[u_dict], "buffer")
-				end
+-- 				local buffer_filetype = vim.api.nvim_eval([[expand('%:e')]])
+--
+-- 				if (buffer_filetype == file_type) then
+-- 					parse_iabbrev_pr(user_langs_programming_list[u_dict], "buffer")
+-- 				end
 
 				table.insert(M.loaded_dicts, u_dict)
 			end
