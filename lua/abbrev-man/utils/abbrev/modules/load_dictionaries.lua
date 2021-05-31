@@ -21,12 +21,10 @@ local function has_element(table, element, type)
 			if index == element then return true end
 		end
 	end
-
     return false
 end
 
 local function map_iabbrev(element, replacement)
-	-- vim.cmd("echo 'Mapping: "..element.."; To: "..replacement.."'")
 	cmd([[iabbrev ]]..element..[[ ]]..replacement)
 end
 
@@ -237,14 +235,11 @@ function M.load_natural_dictionaries_at_startup(option)
 			for element in pairs(inner_am_dict) do
 				if has_element(user_dicts[u_dict], element, "index") then
 					if not (user_dicts[u_dict][element] == "rm_am") then
-						vim.cmd("echo 'Seeting: "..tostring(inner_am_dict[element]).."; To: "..tostring(user_dicts[u_dict][element]).."'")
 						inner_am_dict[element] = user_dicts[u_dict][element]
 					else
 						inner_am_dict[element] = nil -- remove element
 					end
 				end
-
-				-- if has_element(inner_am_dict, )
 			end
 
 			if (option == "source") then
