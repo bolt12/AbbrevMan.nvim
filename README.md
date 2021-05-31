@@ -242,6 +242,7 @@ Note: In the `State` column, `working` means that the dictionary has something a
 | English       | `nt_en`    | Working   |
 | Spanish       | `nt_es`    | Supported |
 | Portuguese    | `nt_pt`    | Supported |
+| Polish        | `nt_pl`    | Working   |
 
 ##### Programming Languages
 
