@@ -8,11 +8,6 @@ if exists('g:loaded_isas') | finish | endif
 let s:save_cpo = &cpo " save user coptions
 set cpo&vim " reset them to defaults
 
-
-" Vars {{{
-let g:__isas_main_path = expand('<sfile>:p:h:h')
-" }}}
-
 " Utils {{{
 function! isascmds#get_first_arg(...)
 	return "".get(a:, 1, 1).""
@@ -31,10 +26,6 @@ endfunction
 function! isascmds#aa_available_dictionaries() abort
 	return luaeval('require("isas.completions.aa_available_dictionaries").available_commands()')
 endfunction
-
-" function! isascmds#aa_loaded_dictionaries() abort
-" 	return luaeval('require("isas.utils.abbrev.modules.load_dictionaries").available_commands()')
-" endfunction
 
 function! isascmds#aa_loaded_dictionaries() abort
 	return luaeval('require("isas.completions.aa_loaded_dictionaries").available_commands()')
