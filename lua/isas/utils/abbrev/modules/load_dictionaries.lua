@@ -301,6 +301,7 @@ function M.load_natural_dictionaries_at_startup(option)
 					table.insert(M.loaded_dicts, u_dict)
 				elseif (perm_status ~= nil and perm_status == true) then
 					for element in pairs(inner_isas_dict.permutate) do
+						vim.cmd("echo 'Mapping: "..element.."'")
 						map_iabbrev_permutation(element)
 					end
 					table.insert(M.loaded_dicts, u_dict)
