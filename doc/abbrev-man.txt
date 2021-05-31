@@ -1,35 +1,35 @@
 
 
-*isas.nvim*						*isas-help*		A NeoVim plugin for highlighting visual selections like in a normal document editor!
+*AbbrevMan.nvim*					*abbrev-man*		A NeoVim plugin for highlighting visual selections like in a normal document editor!
 
 Author:		Pocco81 <https://github.com/Pocco81>
 License:	GPL-3.0 License
 
-CONTENTS							*isas-contents*
+CONTENTS							*am-contents*
 
-TL;DR								|isas-tldr|
-Features							|isas-features|
-Installation						|isas-installation|
-	Prerequisites					|isas-prerequisites|
-	Adding the plugin				|isas-adding-the-plugin|
-	Setup Configuration				|isas-setup-configuration|
-		For init.lua				|isas-for-initlua|
-		For init.vim				|isas-for-initvim|
-	Updating						|isas-updating|
-Usage (commands)					|isas-usage-commands|
-	Default							|isas-default|
-Configuration						|isas-configuration|
-	General							|isas-general|
-	Highlight Colors				|isas-dictionaries|
-Key Bindings						|isas-keybindings|
-LICENSE								|isas-license|
+TL;DR								|am-tldr|
+Features							|am-features|
+Installation						|am-installation|
+	Prerequisites					|am-prerequisites|
+	Adding the plugin				|am-adding-the-plugin|
+	Setup Configuration				|am-setup-configuration|
+		For init.lua				|am-for-initlua|
+		For init.vim				|am-for-initvim|
+	Updating						|am-updating|
+Usage (commands)					|am-usage-commands|
+	Default							|am-default|
+Configuration						|am-configuration|
+	General							|am-general|
+	Highlight Colors				|am-dictionaries|
+Key Bindings						|am-keybindings|
+LICENSE								|am-license|
 
 ==============================================================================
 
-# TL;DR											*isas-tldr*
-	ISuckAtSpelling.nvim is a NeoVim plugin written in lua that ehances (n)vim's built-in abbreviations by giving users the possibility to manage different "dictionaries" for various natural (e.g. English, Spanish) and programming (e.g. Bash, Lua) languages. It can be installed using your package manager of preference and it will work out of the box (the English dictionary enabled by default).
+# TL;DR											*am-tldr*
+	AbbrevMan.nvim is a NeoVim plugin written in lua that ehances (n)vim's built-in abbreviations by giving users the possibility to manage different "dictionaries" for various natural (e.g. English, Spanish) and programming (e.g. Bash, Lua) languages. It can be installed using your package manager of preference and it will work out of the box (the English dictionary enabled by default).
 
-# Features										*isas-features*
+# Features										*am-features*
 - Auto-correct spelling mistakes in both natural and programming languages.
 - Users can create personalized dictionaries.
 - Users can override and delete elements in the built-in dictionaries.
@@ -38,7 +38,7 @@ LICENSE								|isas-license|
 - Tab auto-completion for the commands.
 
 
-# Installation									*isas-installation*
+# Installation									*am-installation*
 
 ## Prerequisites
 
@@ -51,26 +51,26 @@ You can use your favorite plugin manager for this. Here are some examples with t
 ### Vim-plug
 
 ```lua
-Plug 'Pocco81/ISuckAtSpelling.nvim'
+Plug 'Pocco81/AbbrevMan.nvim'
 ```
 ### Packer.nvim
 
 ```lua
-use "Pocco81/ISuckAtSpelling.nvim"
+use "Pocco81/AbbrevMan.nvim"
 ```
 
 ### Vundle
 
 ```lua
-Plugin 'Pocco81/ISuckAtSpelling.nvim'
+Plugin 'Pocco81/AbbrevMan.nvim'
 ```
 
 ### NeoBundle
 ```lua
-NeoBundleFetch 'Pocco81/ISuckAtSpelling.nvim'
+NeoBundleFetch 'Pocco81/AbbrevMan.nvim'
 ```
 
-## Setup (configuration)						*isas-configuration*
+## Setup (configuration)						*am-configuration*
 As it's stated in the TL;DR, there are already some sane defaults that you may like, however you can change them to match your taste. These are the defaults:
 
 ```lua
@@ -87,12 +87,12 @@ programming_dictionaries = {
 The way you setup the settings on your config varies on whether you are using vimscript for this or Lua.
 
 
-For init.lua									*isas-for-initlua*
+For init.lua									*am-for-initlua*
 
 ```lua
-rocal isas = require("isas")
+local abbrev_man = require("abbrev-man")
 
-isas.setup({
+abbrev_man.setup({
 	load_natural_dictionaries_at_startup = true,
 	load_programming_dictionaries_at_startup = true,
 	natural_dictionaries = {
@@ -104,13 +104,13 @@ isas.setup({
 })
 ```
 
-For init.vim									*isas-for-initvim*
+For init.vim									*am-for-initvim*
 
 ```lua
 lua << EOF
-rocal isas = require("isas")
+local abbrev_man = require("abbrev-man")
 
-isas.setup({
+abbrev_man.setup({
 	load_natural_dictionaries_at_startup = true,
 	load_programming_dictionaries_at_startup = true,
 	natural_dictionaries = {
@@ -125,36 +125,36 @@ EOF
 
 For instructions on how to configure the plugin, check out the [configuration](#configuration) section.
 
-## Updating												*isas-updating*
+## Updating												*am-updating*
 This depends on your plugin manager. If, for example, you are using Packer.nvim, you can update it with this command:
 ```lua
 :PackerUpdate
 ```
 
-# Usage (commands)										*isas-usage-commands*
-All the commands follow the *camel casing* naming convention and have the `ISAS` prefix so that it's easy to remember that they are part of the ISuckAtSpelling.nvim plugin. These are all of them:
+# Usage (commands)										*am-usage-commands*
+All the commands follow the *camel casing* naming convention and have the `am` prefix so that it's easy to remember that they are part of the AbbrevMan.nvim plugin. These are all of them:
 
 ## Default
-- `:ISASLoad <dictionary>` Loads a dictionary. If `<dictionary>` hasn't been loaded, it will load it, otherwise it will show a message explaining the error.
-- `:ISASUnload <dictionary>` Unloads a dictionary. If `<dictionary>` has been loaded, it will unload it, otherwise it will show a message explaining the error.
+- `:amLoad <dictionary>` Loads a dictionary. If `<dictionary>` hasn't been loaded, it will load it, otherwise it will show a message explaining the error.
+- `:amUnload <dictionary>` Unloads a dictionary. If `<dictionary>` has been loaded, it will unload it, otherwise it will show a message explaining the error.
 
-# Configuration											*isas-configuration*
+# Configuration											*am-configuration*
 Although the settings already have self-explanatory names, here is where you can find info about each one of them and their classifications!
 
-## General												*isas-general*
+## General												*am-general*
 This settings are unrelated to any group and are independent.
 - `load_natural_dictionaries_at_startup`: (Boolean) if true, it will load the dictionaries in the `natural_dictionaries` table at startup.
 - `load_programming_dictionaries_at_startup`: (Boolean) if true, it will load the dictionaries in the `programming_dictionaries` tables at startup.
 
-## Dictionaries											*isas-dictionaries*
-These two tables contain the dictionaries the user wants to be loaded at startup. Users may add their own dictionaries, but they must keep in mind to follow the conventions mentioned in below for each table. The list of supported languages can be found below. To add a language to either of both dictionaries find the its *Dict. Name* (in the table below) and add it to its corresponding table (e.g `["nt_en"]` for the english dictionary). To override certain elements of any given dictionary get [the contents of that dictionary](https://github.com/Pocco81/ISuckAtSpelling.nvim/tree/dev/lua/isas/dictionaries) and set the value of the element's key to whatever you want; set it to `"rm_isas"` to ignore it. For example:
+## Dictionaries											*am-dictionaries*
+These two tables contain the dictionaries the user wants to be loaded at startup. Users may add their own dictionaries, but they must keep in mind to follow the conventions mentioned in below for each table. The list of supported languages can be found below. To add a language to either of both dictionaries find the its *Dict. Name* (in the table below) and add it to its corresponding table (e.g `["nt_en"]` for the english dictionary). To override certain elements of any given dictionary get [the contents of that dictionary](https://github.com/Pocco81/AbbrevMan.nvim/tree/dev/lua/am/dictionaries) and set the value of the element's key to whatever you want; set it to `"rm_am"` to ignore it. For example:
 
 
 ```
 natural_dictionaries = {
 	["nt_en"] = {
 		["adn"] = "AND",
-		["THe"] = "rm_isas"
+		["THe"] = "rm_am"
 	},
 	["nt_my_slangs"] {
 		["lmao"] = "LMAO"
@@ -165,7 +165,7 @@ programming_dictionaries = {
 }
 ```
 
-In this example, we are enabling the `Python` dictionary in the `programming_dictionaries = {}` table and we are enabling the English dictionary (`nt_en`) and custom one for slangs (`nt_my_slangs`) in the `natural_dictionaries = {}` table. In the English table we override the value of the **adn** (`["adn"]`), which is the auto-correction for mistyping the word **and**, and set it to auto-correct to **AND**. Here, we are also removing the value of **THe** from the auto-correction's list by setting it to `"rm_isas"`. Of course, it also added out custom dictionary (`["nt_my_slangs"]`).
+In this example, we are enabling the `Python` dictionary in the `programming_dictionaries = {}` table and we are enabling the English dictionary (`nt_en`) and custom one for slangs (`nt_my_slangs`) in the `natural_dictionaries = {}` table. In the English table we override the value of the **adn** (`["adn"]`), which is the auto-correction for mistyping the word **and**, and set it to auto-correct to **AND**. Here, we are also removing the value of **THe** from the auto-correction's list by setting it to `"rm_am"`. Of course, it also added out custom dictionary (`["nt_my_slangs"]`).
 
 ### Natural and Programming Dictionaries
 - **Natural Dictionaries:** The table `natural_dictionaries = {}` contains all the dictionaries for the various natural languages (e.g. English). The name of each dictionary **must** start with the prefix `nt_`, followed by the abbreviated version of the targeted languages' name.
@@ -175,7 +175,7 @@ In this example, we are enabling the `Python` dictionary in the `programming_dic
 
 These are the lists with all the currently supported languages:
 
-Note: In the `State` column, `working` means that the dictionary has something and it's supported, while `Supported` means that ISuckAtSpelling.nvim supports the dictionary but is under development, so it's better not to use it.
+Note: In the `State` column, `working` means that the dictionary has something and it's supported, while `Supported` means that AbbrevMan.nvim supports the dictionary but is under development, so it's better not to use it.
 
 ##### Natural Languages
 
@@ -194,7 +194,7 @@ Note: In the `State` column, `working` means that the dictionary has something a
 | Java          | `pr_java`  | Supported |
 | Lua           | `pr_lua`   | Supported |
 
-# Key-bindings											*isas-keybindings*
+# Key-bindings											*am-keybindings*
 There are no default key-bindings. However, you can set them on your own as you'd normally do! Here is an example mapping `<F3>` to load the English dictionary while on normal:
 
 **For init.lua**
@@ -202,7 +202,7 @@ There are no default key-bindings. However, you can set them on your own as you'
 vim.api.nvim_set_keymap(
     "n",
     "<F3>",
-    "ISASLoad nt_en<CR>",
+    "amLoad nt_en<CR>",
     {
         noremap = true,
         silent = true
@@ -212,17 +212,17 @@ vim.api.nvim_set_keymap(
 
 **For init.vim**
 ```vimscript
-nnoremap <silent> <f3> :ISASLoad nt_en<CR>
+nnoremap <silent> <f3> :amLoad nt_en<CR>
 ```
 
-# License												*isas-license*
+# License												*am-license*
 
-ISuckAtSpelling.nvim is released under the GPL v3.0 license. It grants open-source permissions for users including:
+AbbrevMan.nvim is released under the GPL v3.0 license. It grants open-source permissions for users including:
 
 - The right to download and run the software freely
 - The right to make changes to the software as desired
 - The right to redistribute copies of the software
 - The right to modify and distribute copies of new versions of the software
 
-For more convoluted language, see the [LICENSE file](https://github.com/Pocco81/ISuckAtSpelling.nvim/blob/main/LICENSE.md).
+For more convoluted language, see the [LICENSE file](https://github.com/Pocco81/AbbrevMan.nvim/blob/main/LICENSE.md).
 

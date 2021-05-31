@@ -1,23 +1,23 @@
-# 🍍 ISuckAtSpelling.nvim
+# 🍍 AbbrevMan.nvim
 
 <p align="center">
-	A NeoVim plugin that auto-corrects spelling mistakes in various natural and programming languages!
+	A NeoVim plugin that manages abbreviations for various natural and programming languages!
 </p>
 
 <p align="center">
-    <a href="https://github.com/Pocco81/ISuckAtSpelling.nvim/stargazers"
+    <a href="https://github.com/Pocco81/AbbrevMan.nvim/stargazers"
         ><img
-            src="https://img.shields.io/github/stars/Pocco81/ISuckAtSpelling.nvim"
+            src="https://img.shields.io/github/stars/Pocco81/AbbrevMan.nvim"
             alt="Repository's starts"
     /></a>
-    <a href="https://github.com/Pocco81/ISuckAtSpelling.nvim/issues"
+    <a href="https://github.com/Pocco81/AbbrevMan.nvim/issues"
         ><img
-            src="https://img.shields.io/github/issues-raw/Pocco81/ISuckAtSpelling.nvim"
+            src="https://img.shields.io/github/issues-raw/Pocco81/AbbrevMan.nvim"
             alt="Issues"
     /></a>
-    <a href="https://github.com/Pocco81/ISuckAtSpelling.nvim/blob/main/LICENSE"
+    <a href="https://github.com/Pocco81/AbbrevMan.nvim/blob/main/LICENSE"
         ><img
-            src="https://img.shields.io/github/license/Pocco81/ISuckAtSpelling.nvim"
+            src="https://img.shields.io/github/license/Pocco81/AbbrevMan.nvim"
             alt="License"
     /><br />
     <a href="https://saythanks.io/to/Pocco81%40gmail.com"
@@ -25,14 +25,14 @@
             src="https://img.shields.io/badge/say-thanks-modal.svg"
             alt="Say thanks"/></a
     ></a>    <a href="https://github.com/Pocco81/whid.nvim/commits/main"
-    <a href="https://github.com/Pocco81/ISuckAtSpelling.nvim/commits/main"
+    <a href="https://github.com/Pocco81/AbbrevMan.nvim/commits/main"
 		><img
-			src="https://img.shields.io/github/last-commit/Pocco81/ISuckAtSpelling.nvim/dev"
+			src="https://img.shields.io/github/last-commit/Pocco81/AbbrevMan.nvim/dev"
 			alt="Latest commit"
     /></a>
-    <a href="https://github.com/Pocco81/ISuckAtSpelling.nvim"
+    <a href="https://github.com/Pocco81/AbbrevMan.nvim"
         ><img
-            src="https://img.shields.io/github/repo-size/Pocco81/ISuckAtSpelling.nvim"
+            src="https://img.shields.io/github/repo-size/Pocco81/AbbrevMan.nvim"
             alt="GitHub repository size"
     /></a>
 </p>
@@ -47,7 +47,7 @@
 # TL;DR
 
 <div style="text-align: justify">
-	ISuckAtSpelling.nvim is a NeoVim plugin written in lua that ehances (n)vim's built-in abbreviations by giving users the possibility to manage different "dictionaries" for various natural (e.g. English, Spanish) and programming (e.g. Bash, Lua) languages. It can be installed using your package manager of preference and it will work out of the box (the English dictionary enabled by default).
+	AbbrevMan.nvim is a NeoVim plugin written in lua that ehances (n)vim's built-in abbreviations (`:h iab`) by giving users the possibility to manage different "dictionaries" for various natural (e.g. English, Spanish) and programming (e.g. Bash, Lua) languages; the idea is that the users will create their own dictionaries, however there are also some built-in ones that are worth checking out. It can be installed using your package manager of preference and it will work out of the box (the English dictionary enabled by default).
 </div>
 
 
@@ -76,8 +76,7 @@
 * [To-Do](#-to-do)
 
 # 🎁 Features
-- Auto-correct spelling mistakes in both natural and programming languages.
-- Users can create personalized dictionaries.
+- Users can create custom dictionaries.
 - Users can override and delete elements in the built-in dictionaries.
 - Has commands to load and unload dictionaries at any given time.
 - Can be set to load or not at startup.
@@ -85,14 +84,13 @@
 
 
 # 📺 Notices
-Checkout the [CHANGELOG.md](https://github.com/Pocco81/ISuckAtSpelling.nvim/blob/main/CHANGELOG.md) file for more information on the notices below:
+Checkout the [CHANGELOG.md](https://github.com/Pocco81/AbbrevMan.nvim/blob/main/CHANGELOG.md) file for more information on the notices below:
 
 # 📦 Installation
 
 ## Prerequisites
 
 - [NeoVim nightly](https://github.com/neovim/neovim/releases/tag/nightly) (>=v0.5.0)
-- A nice color scheme to complement your experience ;)
 
 ## Adding the plugin
 You can use your favorite plugin manager for this. Here are some examples with the most popular ones:
@@ -100,23 +98,23 @@ You can use your favorite plugin manager for this. Here are some examples with t
 ### Vim-plug
 
 ```lua
-Plug 'Pocco81/ISuckAtSpelling.nvim'
+Plug 'Pocco81/AbbrevMan.nvim'
 ```
 ### Packer.nvim
 
 ```lua
-use "Pocco81/ISuckAtSpelling.nvim"
+use "Pocco81/AbbrevMan.nvim"
 ```
 
 ### Vundle
 
 ```lua
-Plugin 'Pocco81/ISuckAtSpelling.nvim'
+Plugin 'Pocco81/AbbrevMan.nvim'
 ```
 
 ### NeoBundle
 ```lua
-NeoBundleFetch 'Pocco81/ISuckAtSpelling.nvim'
+NeoBundleFetch 'Pocco81/AbbrevMan.nvim'
 ```
 
 ## Setup (configuration)
@@ -140,9 +138,9 @@ The way you setup the settings on your config varies on whether you are using vi
 <p>
 
 ```lua
-rocal isas = require("isas")
+local abbrev_man = require("abbrev-man")
 
-isas.setup({
+abbrev_man.setup({
 	load_natural_dictionaries_at_startup = true,
 	load_programming_dictionaries_at_startup = true,
 	natural_dictionaries = {
@@ -151,6 +149,7 @@ isas.setup({
 	programming_dictionaries = {
 		["pr_py"] = {}
 	}
+
 })
 ```
 <br />
@@ -163,9 +162,9 @@ isas.setup({
 
 ```lua
 lua << EOF
-rocal isas = require("isas")
+local abbrev_man = require("abbrev-man")
 
-isas.setup({
+abbrev_man.setup({
 	load_natural_dictionaries_at_startup = true,
 	load_programming_dictionaries_at_startup = true,
 	natural_dictionaries = {
@@ -174,6 +173,7 @@ isas.setup({
 	programming_dictionaries = {
 		["pr_py"] = {}
 	}
+
 })
 EOF
 ```
@@ -189,30 +189,41 @@ This depends on your plugin manager. If, for example, you are using Packer.nvim,
 ```
 
 # 🤖 Usage (commands)
-All the commands follow the *camel casing* naming convention and have the `ISAS` prefix so that it's easy to remember that they are part of the ISuckAtSpelling.nvim plugin. These are all of them:
+All the commands follow the *camel casing* naming convention and have the `AM` (**A**bbreviation **M**anager) prefix so that it's easy to remember that they are part of the AbbrevMan.nvim plugin. These are all of them:
 
 ## Default
-- `:ISASLoad <dictionary>` Loads a dictionary. If `<dictionary>` hasn't been loaded, it will load it, otherwise it will show a message explaining the error.
-- `:ISASUnload <dictionary>` Unloads a dictionary. If `<dictionary>` has been loaded, it will unload it, otherwise it will show a message explaining the error.
+- `:AMLoad <dictionary>` Loads a dictionary. If `<dictionary>` hasn't been loaded, it will load it, otherwise it will show a message explaining the error.
+- `:AMUnload <dictionary>` Unloads a dictionary. If `<dictionary>` has been loaded, it will unload it, otherwise it will show a message explaining the error.
 
 # 🐬 Configuration
 Although the settings already have self-explanatory names, here is where you can find info about each one of them and their classifications! 
 
 ## General
-This settings are unrelated to any group and are independent.
+These settings are unrelated to any group and are independent.
 - `load_natural_dictionaries_at_startup`: (Boolean) if true, it will load the dictionaries in the `natural_dictionaries` table at startup.
 - `load_programming_dictionaries_at_startup`: (Boolean) if true, it will load the dictionaries in the `programming_dictionaries` tables at startup.
 
 ## Dictionaries
+The following tables contain the dictionaries that you want to be enabled (either at startup or by loading them with `:AMLoad <dictionary>`). Although each table has its own "rules" (mentioned below), this is the general syntax that a dictionary must have:
 
-These two tables contain the dictionaries the user wants to be loaded at startup. Users may add their own dictionaries, but they must keep in mind to follow the conventions mentioned in below for each table. The list of supported languages can be found below. To add a language to either of both dictionaries find the its *Dict. Name* (in the table below) and add it to its corresponding table (e.g `["nt_en"]` for the english dictionary). To override certain elements of any given dictionary get [the contents of that dictionary](https://github.com/Pocco81/ISuckAtSpelling.nvim/tree/dev/lua/isas/dictionaries) and set the value of the element's key to whatever you want; set it to `"rm_isas"` to ignore it. For example:
+```
+["<prefix><name>"] = {
+	["<abbreviation>"] = "<element>"
+}
+```
 
+- `<prefix>`: represents the group  the dictionary belongs to. It can either be `nt_` (if you put it in the `natural_dictionaries` tables) or `pr_` (if you put it in the `programming_dictionaries` table).
+- `<name>`: the name you'd like to give to your dictionary.
+- `<abbreviation>`: the abbreviation itself.
+- `<element>`: what the abbreviation means (aka what will be put after you press space after the typing the abbreviation.)
+
+Here is an example:
 
 ```
 natural_dictionaries = {
 	["nt_en"] = {
 		["adn"] = "AND",
-		["THe"] = "rm_isas"
+		["THe"] = "rm_am"
 	},
 	["nt_my_slangs"] {
 		["lmao"] = "LMAO"
@@ -223,17 +234,19 @@ programming_dictionaries = {
 }
 ```
 
-In this example, we are enabling the `Python` dictionary in the `programming_dictionaries = {}` table and we are enabling the English dictionary (`nt_en`) and custom one for slangs (`nt_my_slangs`) in the `natural_dictionaries = {}` table. In the English table we override the value of the **adn** (`["adn"]`), which is the auto-correction for mistyping the word **and**, and set it to auto-correct to **AND**. Here, we are also removing the value of **THe** from the auto-correction's list by setting it to `"rm_isas"`. Of course, it also added out custom dictionary (`["nt_my_slangs"]`).
+In this example, we are enabling the `Python` dictionary in the `programming_dictionaries = {}` table and we are enabling the English dictionary (`nt_en`) and custom one for slangs (`nt_my_slangs`) in the `natural_dictionaries = {}` table. In the English table we override the value of the **adn** (`["adn"]`), which is the auto-correction for mistyping the word **and**, and set it to auto-correct to **AND**. Here, we are also removing the value of **THe** from the auto-correction's list by setting it to `"rm_am"`. Of course, it also added out custom dictionary (`["nt_my_slangs"]`).
+
+AbbrevMan.nvim **is not meant to be an spell checker or an auto-correction engine**, it simply has some built-in in dictionaries that can be used for that purpose too. Again, that's not AbbrevMan's main purpose, but if you want to use it like that, feel free to do so.
 
 ### Natural and Programming Dictionaries
-- **Natural Dictionaries:** The table `natural_dictionaries = {}` contains all the dictionaries for the various natural languages (e.g. English). The name of each dictionary **must** start with the prefix `nt_`, followed by the abbreviated version of the targeted languages' name.
+- **Natural Dictionaries:** The table `natural_dictionaries = {}` contains all the dictionaries for the various natural languages (e.g. English). The name of each dictionary **must** start with the prefix `nt_`, followed by the name of that dictionary.
 - **Programming Dictionaries:** The table `programming_dictionaries = {}` contains all the dictionaries for the various programming languages (e.g. JavaScript). The name of each dictionary **must** start with the prefix `pr_`, followed by the extension that a file written in that language has (e.g for **Python** files the extension is `.py`, so we put `py` here).
 
 #### Supported Languages
 
-These are the lists with all the currently supported languages:
+These are the lists with all the currently supported languages (remember that the idea is for you to add your own):
 
-Note: In the `State` column, `working` means that the dictionary has something and it's supported, while `Supported` means that ISuckAtSpelling.nvim supports the dictionary but is under development, so it's better not to use it.
+Note: In the `State` column, `working` means that the dictionary has something and it's supported, while `Supported` means that AbbrevMan.nvim supports the dictionary but is under development, so it's better not to use it.
 
 ##### Natural Languages
 
@@ -260,7 +273,7 @@ There are no default key-bindings. However, you can set them on your own as you'
 vim.api.nvim_set_keymap(
     "n",
     "<F3>",
-    "ISASLoad nt_en<CR>",
+    "AMLoad nt_en<CR>",
     {
         noremap = true,
         silent = true
@@ -270,40 +283,40 @@ vim.api.nvim_set_keymap(
 
 **For init.vim**
 ```vimscript
-nnoremap <silent> <f3> :ISASLoad nt_en<CR>
+nnoremap <silent> <f3> :AMLoad nt_en<CR>
 ```
 
 # 🙋 FAQ
 
 - Q: ***"How can I view the doc from NeoVim?"***
-- A: Use `:help ISuckAtSpelling.nvim`
+- A: Use `:help abbrev-man`
 
 
 # 🫂 Contribute
 
-Pull Requests are welcomed as long as they are properly justified and there are no conflicts. If your PR has something to do with the README or in general related with the documentation, I'll gladly merge it! Also, when writing code for the project **you must** use the [.editorconfig](https://github.com/Pocco81/ISuckAtSpelling.nvim/blob/main/.editorconfig) file on your editor so as to "maintain consistent coding styles". For instructions on how to use this file refer to [EditorConfig's website](https://editorconfig.org/).
+Pull Requests are welcomed as long as they are properly justified and there are no conflicts. If your PR has something to do with the README or in general related with the documentation, I'll gladly merge it! Also, when writing code for the project **you must** use the [.editorconfig](https://github.com/Pocco81/AbbrevMan.nvim/blob/main/.editorconfig) file on your editor so as to "maintain consistent coding styles". For instructions on how to use this file refer to [EditorConfig's website](https://editorconfig.org/).
 
 Things I currently need help on:
 
-- Creating dictionaries for natural languages. Use the [English dictionary](https://github.com/Pocco81/ISuckAtSpelling.nvim/blob/dev/lua/isas/dictionaries/langs_natural/nt_en.lua) as a guide.
-- Creating dictionaries for programming languages. Use the [Python dictionary](https://github.com/Pocco81/ISuckAtSpelling.nvim/blob/dev/lua/isas/dictionaries/langs_programming/pr_py.lua) as a guide.
+- Creating dictionaries for natural languages. Use the [English dictionary](https://github.com/Pocco81/AbbrevMan.nvim/blob/dev/lua/abbrev-man/dictionaries/langs_natural/nt_en.lua) as a guide.
+- Creating dictionaries for programming languages. Use the [Python dictionary](https://github.com/Pocco81/AbbrevMan.nvim/blob/dev/lua/abbrev-man/dictionaries/langs_programming/pr_py.lua) as a guide.
 
 
 # 💭 Inspirations
 
-The following projects inspired the creation of ISuckAtSpelling.nvim. If possible, go check them out to see why they are so amazing :]
+The following projects inspired the creation of AbbrevMan.nvim. If possible, go check them out to see why they are so amazing :]
 - [preservim/vim-litecorrect](https://github.com/preservim/vim-litecorrect): Lightweight auto-correction for Vim.
 
 # 📜 License
 
-ISuckAtSpelling.nvim is released under the GPL v3.0 license. It grants open-source permissions for users including:
+AbbrevMan.nvim is released under the GPL v3.0 license. It grants open-source permissions for users including:
 
 - The right to download and run the software freely
 - The right to make changes to the software as desired
 - The right to redistribute copies of the software
 - The right to modify and distribute copies of new versions of the software
 
-For more convoluted language, see the [LICENSE file](https://github.com/Pocco81/ISuckAtSpelling.nvim/blob/main/LICENSE.md).
+For more convoluted language, see the [LICENSE file](https://github.com/Pocco81/AbbrevMan.nvim/blob/main/LICENSE.md).
 
 # 📋 TO-DO
 
@@ -317,3 +330,4 @@ For more convoluted language, see the [LICENSE file](https://github.com/Pocco81/
 <p align="center">
 	Enjoy!
 </p>
+
