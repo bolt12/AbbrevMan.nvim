@@ -1,0 +1,227 @@
+
+
+*isas.nvim*						*isas-help*		A NeoVim plugin for highlighting visual selections like in a normal document editor!
+
+Author:		Pocco81 <https://github.com/Pocco81>
+License:	GPL-3.0 License
+
+CONTENTS							*isas-contents*
+
+TL;DR								|isas-tldr|
+Features							|isas-features|
+Installation						|isas-installation|
+	Prerequisites					|isas-prerequisites|
+	Adding the plugin				|isas-adding-the-plugin|
+	Setup Configuration				|isas-setup-configuration|
+		For init.lua				|isas-for-initlua|
+		For init.vim				|isas-for-initvim|
+	Updating						|isas-updating|
+Usage (commands)					|isas-usage-commands|
+	Default							|isas-default|
+Configuration						|isas-configuration|
+	General							|isas-general|
+	Highlight Colors				|isas-dictionaries|
+Key Bindings						|isas-keybindings|
+LICENSE								|isas-license|
+
+==============================================================================
+
+# TL;DR											*isas-tldr*
+	ISuckAtSpelling.nvim is a NeoVim plugin written in lua that ehances (n)vim's built-in abbreviations by giving users the possibility to manage different "dictionaries" for various natural (e.g. English, Spanish) and programming (e.g. Bash, Lua) languages. It can be installed using your package manager of preference and it will work out of the box (the English dictionary enabled by default).
+
+# Features										*isas-features*
+- Auto-correct spelling mistakes in both natural and programming languages.
+- Users can create personalized dictionaries.
+- Users can override and delete elements in the built-in dictionaries.
+- Has commands to load and unload dictionaries at any given time.
+- Can be set or not to load at startup.
+- Tab auto-completion for the commands.
+
+
+# Installation									*isas-installation*
+
+## Prerequisites
+
+- [NeoVim nightly](https://github.com/neovim/neovim/releases/tag/nightly) (>=v0.5.0)
+- A nice color scheme to complement your experience ;)
+
+## Adding the plugin
+You can use your favorite plugin manager for this. Here are some examples with the most popular ones:
+
+### Vim-plug
+
+```lua
+Plug 'Pocco81/ISuckAtSpelling.nvim'
+```
+### Packer.nvim
+
+```lua
+use "Pocco81/ISuckAtSpelling.nvim"
+```
+
+### Vundle
+
+```lua
+Plugin 'Pocco81/ISuckAtSpelling.nvim'
+```
+
+### NeoBundle
+```lua
+NeoBundleFetch 'Pocco81/ISuckAtSpelling.nvim'
+```
+
+## Setup (configuration)						*isas-configuration*
+As it's stated in the TL;DR, there are already some sane defaults that you may like, however you can change them to match your taste. These are the defaults:
+
+```lua
+load_natural_dictionaries_at_startup = true,
+load_programming_dictionaries_at_startup = true,
+natural_dictionaries = {
+	["nt_en"] = {}
+},
+programming_dictionaries = {
+	["pr_py"] = {}
+}
+```
+
+The way you setup the settings on your config varies on whether you are using vimscript for this or Lua.
+
+
+For init.lua									*isas-for-initlua*
+
+```lua
+rocal isas = require("isas")
+
+isas.setup({
+	load_natural_dictionaries_at_startup = true,
+	load_programming_dictionaries_at_startup = true,
+	natural_dictionaries = {
+		["nt_en"] = {}
+	},
+	programming_dictionaries = {
+		["pr_py"] = {}
+	}
+})
+```
+
+For init.vim									*isas-for-initvim*
+
+```lua
+lua << EOF
+rocal isas = require("isas")
+
+isas.setup({
+	load_natural_dictionaries_at_startup = true,
+	load_programming_dictionaries_at_startup = true,
+	natural_dictionaries = {
+		["nt_en"] = {}
+	},
+	programming_dictionaries = {
+		["pr_py"] = {}
+	}
+})
+EOF
+```
+
+For instructions on how to configure the plugin, check out the [configuration](#configuration) section.
+
+## Updating												*isas-updating*
+This depends on your plugin manager. If, for example, you are using Packer.nvim, you can update it with this command:
+```lua
+:PackerUpdate
+```
+
+# Usage (commands)										*isas-usage-commands*
+All the commands follow the *camel casing* naming convention and have the `ISAS` prefix so that it's easy to remember that they are part of the ISuckAtSpelling.nvim plugin. These are all of them:
+
+## Default
+- `:ISASLoad <dictionary>` Loads a dictionary. If `<dictionary>` hasn't been loaded, it will load it, otherwise it will show a message explaining the error.
+- `:ISASUnload <dictionary>` Unloads a dictionary. If `<dictionary>` has been loaded, it will unload it, otherwise it will show a message explaining the error.
+
+# Configuration											*isas-configuration*
+Although the settings already have self-explanatory names, here is where you can find info about each one of them and their classifications!
+
+## General												*isas-general*
+This settings are unrelated to any group and are independent.
+- `load_natural_dictionaries_at_startup`: (Boolean) if true, it will load the dictionaries in the `natural_dictionaries` table at startup.
+- `load_programming_dictionaries_at_startup`: (Boolean) if true, it will load the dictionaries in the `programming_dictionaries` tables at startup.
+
+## Dictionaries											*isas-dictionaries*
+These two tables contain the dictionaries the user wants to be loaded at startup. Users may add their own dictionaries, but they must keep in mind to follow the conventions mentioned in below for each table. The list of supported languages can be found below. To add a language to either of both dictionaries find the its *Dict. Name* (in the table below) and add it to its corresponding table (e.g `["nt_en"]` for the english dictionary). To override certain elements of any given dictionary get [the contents of that dictionary](https://github.com/Pocco81/ISuckAtSpelling.nvim/tree/dev/lua/isas/dictionaries) and set the value of the element's key to whatever you want; set it to `"rm_isas"` to ignore it. For example:
+
+
+```
+natural_dictionaries = {
+	["nt_en"] = {
+		["adn"] = "AND",
+		["THe"] = "rm_isas"
+	},
+	["nt_my_slangs"] {
+		["lmao"] = "LMAO"
+	}
+},
+programming_dictionaries = {
+	["pr_py"] = {}
+}
+```
+
+In this example, we are enabling the `Python` dictionary in the `programming_dictionaries = {}` table and we are enabling the English dictionary (`nt_en`) and custom one for slangs (`nt_my_slangs`) in the `natural_dictionaries = {}` table. In the English table we override the value of the **adn** (`["adn"]`), which is the auto-correction for mistyping the word **and**, and set it to auto-correct to **AND**. Here, we are also removing the value of **THe** from the auto-correction's list by setting it to `"rm_isas"`. Of course, it also added out custom dictionary (`["nt_my_slangs"]`).
+
+### Natural and Programming Dictionaries
+- **Natural Dictionaries:** The table `natural_dictionaries = {}` contains all the dictionaries for the various natural languages (e.g. English). The name of each dictionary **must** start with the prefix `nt_`, followed by the abbreviated version of the targeted languages' name.
+- **Programming Dictionaries:** The table `programming_dictionaries = {}` contains all the dictionaries for the various programming languages (e.g. JavaScript). The name of each dictionary **must** start with the prefix `pr_`, followed by the extension that a file written in that language has (e.g for **Python** files the extension is `.py`, so we put `py` here).
+
+#### Supported Languages
+
+These are the lists with all the currently supported languages:
+
+Note: In the `State` column, `working` means that the dictionary has something and it's supported, while `Supported` means that ISuckAtSpelling.nvim supports the dictionary but is under development, so it's better not to use it.
+
+##### Natural Languages
+
+| Nat. Language | Dict. Name | State     |
+|---------------|------------|-----------|
+| English       | `nt_en`    | Working   |
+| Spanish       | `nt_es`    | Supported |
+| Portuguese    | `nt_pt`    | Supported |
+
+##### Programming Languages
+
+| Pro. Language | Dict. Name | State     |
+|---------------|------------|-----------|
+| Python        | `pr_py`    | Supported |
+| Java          | `pr_java`  | Supported |
+| Lua           | `pr_lua`   | Supported |
+
+# Key-bindings											*isas-keybindings*
+There are no default key-bindings. However, you can set them on your own as you'd normally do! Here is an example mapping `<F3>` to load the English dictionary while on normal:
+
+**For init.lua**
+```lua
+vim.api.nvim_set_keymap(
+    "n",
+    "<F3>",
+    "ISASLoad nt_en<CR>",
+    {
+        noremap = true,
+        silent = true
+    }
+)
+```
+
+**For init.vim**
+```vimscript
+nnoremap <silent> <f3> :ISASLoad nt_en<CR>
+```
+
+# License												*isas-license*
+
+ISuckAtSpelling.nvim is released under the GPL v3.0 license. It grants open-source permissions for users including:
+
+- The right to download and run the software freely
+- The right to make changes to the software as desired
+- The right to redistribute copies of the software
+- The right to modify and distribute copies of new versions of the software
+
+For more convoluted language, see the [LICENSE file](https://github.com/Pocco81/ISuckAtSpelling.nvim/blob/main/LICENSE.md).
+
