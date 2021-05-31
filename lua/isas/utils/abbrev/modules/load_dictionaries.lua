@@ -296,10 +296,13 @@ function M.load_natural_dictionaries_at_startup(option)
 			if (option == "source") then
 				if (nrml_status ~= nil and nrml_status == true) then
 					for element in pairs(inner_isas_dict.normal) do
+						vim.cmd("echo 'Mapping: "..element.."'")
 						map_iabbrev(element, inner_isas_dict.normal[element])
 					end
 					table.insert(M.loaded_dicts, u_dict)
-				elseif (perm_status ~= nil and perm_status == true) then
+				end
+
+				if (perm_status ~= nil and perm_status == true) then
 					for element in pairs(inner_isas_dict.permutate) do
 						vim.cmd("echo 'Mapping: "..element.."'")
 						map_iabbrev_permutation(element)
