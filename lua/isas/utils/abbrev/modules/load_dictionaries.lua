@@ -3,6 +3,7 @@
 local M = {}
 
 local cmd = vim.cmd
+local api = vim.api
 
 local opts = require("isas.config").options
 local isas_dicts = require("isas.dictionaries.langs_natural.langs_natural_list").arguments
@@ -104,7 +105,7 @@ function M.load_dict(dict)
 					parse_iabbrev_pr(require("isas.dictionaries.langs_programming."..dict), "buffer")
 				)
 
-				local buffer_filetype = vim.api.nvim_eval([[expand('%:e')]])
+				local buffer_filetype = api.nvim_eval([[expand('%:e')]])
 				if (buffer_filetype == file_type) then
 					cmd([[]]..parse_iabbrev_pr(require("isas.dictionaries.langs_programming."..dict), "buffer")..[[]])
 				end
@@ -117,7 +118,7 @@ function M.load_dict(dict)
 					parse_iabbrev_pr(require("isas.dictionaries.langs_programming."..dict), "buffer")
 				)
 
-				local buffer_filetype = vim.api.nvim_eval([[expand('%:e')]])
+				local buffer_filetype = api.nvim_eval([[expand('%:e')]])
 				if (buffer_filetype == file_type) then
 					cmd([[]]..parse_iabbrev_pr(user_langs_programming_list[dict], "buffer")..[[]])
 				end
@@ -213,12 +214,6 @@ function M.load_programming_dictionaries_at_startup(option)
 					"*"..file_type.." silent!",
 					parse_iabbrev_pr(user_langs_programming_list[u_dict], "buffer")
 				)
-
--- 				local buffer_filetype = vim.api.nvim_eval([[expand('%:e')]])
---
--- 				if (buffer_filetype == file_type) then
--- 					parse_iabbrev_pr(user_langs_programming_list[u_dict], "buffer")
--- 				end
 
 				table.insert(M.loaded_dicts, u_dict)
 			end
