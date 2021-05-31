@@ -139,7 +139,7 @@ function M.load_dict(dict)
 			cmd("echo 'Invalid argument, dictionary must have a nt_ or a pr_ prefix'")
 		end
 	else
-		vim.cmd("echo 'The dictionary you are trying to load has already been loaded or does not exist'")
+		cmd("echo 'The dictionary you are trying to load has already been loaded or does not exist'")
 	end
 
 end
@@ -177,13 +177,7 @@ function M.unload_dict(dict)
 			end
 		end
 
-		cmd("echo 'Dict = "..dict.."'")
 		remove_element_tbl(M.loaded_dicts, dict)
-		for key, value in pairs(M.loaded_dicts) do
-			cmd("echo 'Key = "..key.."; Value = "..value.."'")
-
-		end
-
 	else
 		cmd("echo 'The dictionary you are trying to unload has not been loaded yet or does not exist")
 	end
