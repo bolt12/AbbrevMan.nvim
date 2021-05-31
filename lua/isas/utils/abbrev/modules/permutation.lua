@@ -7,10 +7,8 @@ function M.permgen (a, n)
         coroutine.yield(a)
     else
         for i = 1, n, 1 do --i can't be equal to 0, cuz array will be out of index
-
           -- put i-th element as the last one
             a[n], a[i] = a[i], a[n]
-
           -- generate all permutations of the other elements
             M.permgen(a, n - 1)
 

@@ -113,16 +113,47 @@ function M.load_dict(dict)
 			local user_langs_natural_list = opts["natural_dictionaries"]
 
 			if has_element(isas_langs_natural_list, dict, "value") then
-				for element in pairs(require("isas.dictionaries.langs_natural."..dict)) do
-					map_iabbrev(element, require("isas.dictionaries.langs_natural."..dict)[element])
+				local perm_status = opts["natural_dictionaries"][dict]["permutation_enabled"]
+				local nrml_status = opts["natural_dictionaries"][dict]["normal_enabled"]
+				local inner_isas_dict = require("isas.dictionaries.langs_natural."..dict)
+
+				if (nrml_status ~= nil and nrml_status == true) then
+					for element in pairs(inner_isas_dict.normal) do
+						map_iabbrev(element, inner_isas_dict.normal[element])
+					end
+					table.insert(M.loaded_dicts, dict)
+				end
+
+				if (perm_status ~= nil and perm_status == true) then
+					for element in pairs(inner_isas_dict.permutate) do
+						map_iabbrev_permutation(element)
+					end
+					table.insert(M.loaded_dicts, dict)
 				end
 			elseif has_element(user_langs_natural_list, dict, "value") then
-				for element in pairs(user_langs_natural_list[dict]) do
-					map_iabbrev(element, user_langs_natural_list[dict][element])
+				local perm_status = user_dicts[dict]["permutation_enabled"]
+				local nrml_status = user_dicts[dict]["normal_enabled"]
+
+				if (nrml_status ~= nil and nrml_status == true) then
+					if has_element(user_dicts[dict], "normal", "index") then
+						for element in pairs(user_dicts[dict]["normal"]) do
+							cmd("echo 'Mapping: "..element.."'")
+							map_iabbrev(element, user_dicts[dict]["normal"][element])
+						end
+					end
+					table.insert(M.loaded_dicts, dict)
+				end
+
+				if (perm_status ~= nil and perm_status == true) then
+					if has_element(user_dicts[dict], "permutate", "index") then
+						for element in pairs(user_dicts[dict]["permutate"]) do
+							cmd("echo 'Mapping: "..element.."'")
+							map_iabbrev_permutation(element)
+						end
+					end
+					table.insert(M.loaded_dicts, dict)
 				end
 			end
-
-			table.insert(M.loaded_dicts, dict)
 		elseif string.find(dict, "pr_") then
 
 			local file_type = dict:gsub("pr_", "")
@@ -264,9 +295,9 @@ function M.load_natural_dictionaries_at_startup(option)
 			local perm_status = opts["natural_dictionaries"][u_dict]["permutation_enabled"]
 			local nrml_status = opts["natural_dictionaries"][u_dict]["normal_enabled"]
 
-			vim.cmd("echo 'Dict = "..tostring(inner_isas_dict.normal).."'")
-			vim.cmd("echo 'Dict = "..tostring(perm_status).."'")
-			vim.cmd("echo 'Dict = "..tostring(nrml_status).."'")
+			-- vim.cmd("echo 'Dict = "..tostring(inner_isas_dict.normal).."'")
+			-- vim.cmd("echo 'Dict = "..tostring(perm_status).."'")
+			-- vim.cmd("echo 'Dict = "..tostring(nrml_status).."'")
 
 
 

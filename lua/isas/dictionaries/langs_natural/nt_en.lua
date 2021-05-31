@@ -335,12 +335,6 @@ M.normal = {
 M.permutate = {
 	["the"] = "the",
 	["that"] = "that",
-	["this"] = "this",
-	["and"] = "and",
-	["you"] = "you",
-	["with"] = "with",
-	["like"] = "like",
-	["your"] = "your",
 }
 
 
