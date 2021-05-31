@@ -322,6 +322,9 @@ local dict = {
 	["yrea"] = "year",
 	["ytou"] = "you",
 	["yuo"] = "you",
+	["realli"] = "really",
+	["sukc"] = "suck",
+	["zpeling"] = "spelling",
 	["yuor"] = "your"
 }
 
