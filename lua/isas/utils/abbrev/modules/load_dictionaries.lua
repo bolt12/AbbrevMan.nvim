@@ -104,6 +104,12 @@ function M.load_dict(dict)
 				parse_iabbrev_pr(require("isas.dictionaries.langs_programming."..dict), "global")
 			)
 
+			local buffer_filetype = vim.api.nvim_eval([[expand('%:e')]])
+
+			if (buffer_filetype == file_type) then
+				cmd([[parse_iabbrev_pr(user_langs_programming_list[dict], "buffer")]])
+			end
+
 		elseif has_element(user_langs_programming_list, dict, "value") then
 			require("isas.utils.abbrev.modules.isas_augroups").set_augroups(
 				"ISAS_"..dict,
