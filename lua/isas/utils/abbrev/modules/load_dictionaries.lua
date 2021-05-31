@@ -314,13 +314,31 @@ function M.load_natural_dictionaries_at_startup(option)
 
 			end
 		else
-			vim.cmd("Nohing happened")
-			-- if (option == "source") then
-			-- 	for element in pairs(user_dicts[u_dict]) do
-			-- 		map_iabbrev(element, user_dicts[u_dict][element])
-			-- 	end
-			-- 	table.insert(M.loaded_dicts, u_dict)
-			-- end
+			local perm_status = user_dicts[u_dict]["permutation_enabled"]
+			local nrml_status = user_dicts[u_dict]["normal_enabled"]
+
+			if (option == "source") then
+
+				if (perm_status ~= nil and perm_status == true) then
+					if has_element(user_dicts[u_dict], "permutate", "index") then
+						for element in pairs(user_dicts[u_dict]["permutate"]) do
+							cmd("echo 'Mapping: "..element.."'")
+							map_iabbrev_permutation(element)
+						end
+					end
+					table.insert(M.loaded_dicts, u_dict)
+				end
+
+				if (nrml_status ~= nil and nrml_status == true) then
+					if has_element(user_dicts[u_dict], "normal", "index") then
+						for element in pairs(user_dicts[u_dict]["normal"]) do
+							cmd("echo 'Mapping: "..element.."'")
+							map_iabbrev(element, user_dicts[u_dict]["normal"][element])
+						end
+					end
+					table.insert(M.loaded_dicts, u_dict)
+				end
+			end
 		end
 	end
 end
