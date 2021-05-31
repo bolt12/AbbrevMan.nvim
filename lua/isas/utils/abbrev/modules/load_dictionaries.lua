@@ -107,9 +107,9 @@ function M.load_dict(dict)
 			local buffer_filetype = vim.api.nvim_eval([[expand('%:e')]])
 
 			if (buffer_filetype == file_type) then
-				local iab_cmd = parse_iabbrev_pr(isas_langs_programming_list[dict], "buffer")
+				local iab_cmd = parse_iabbrev_pr(require("isas.dictionaries.langs_programming."..dict), "buffer")
 				vim.cmd("echo 'IAB COMMAND = "..iab_cmd.."'")
-				cmd([[]]..parse_iabbrev_pr(user_langs_programming_list[dict], "buffer")..[[]])
+				cmd([[]]..parse_iabbrev_pr(require("isas.dictionaries.langs_programming."..dict), "buffer")..[[]])
 			end
 
 		elseif has_element(user_langs_programming_list, dict, "value") then
