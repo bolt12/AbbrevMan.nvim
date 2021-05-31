@@ -38,7 +38,7 @@
 </p>
 
 
-<kbd><img src ="https://i.imgur.com/bKUJPcB.gif"></kbd>
+<kbd><img src ="https://i.imgur.com/wQabth1.gif"></kbd>
 <p align="center">
 	Demo
 </p><hr>
