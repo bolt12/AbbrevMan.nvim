@@ -26,6 +26,7 @@ local function has_element(table, element, type)
 end
 
 local function map_iabbrev(element, replacement)
+	vim.cmd("echo 'Mapping: "..element.."; To: "..replacement.."'")
 	cmd([[iabbrev ]]..element..[[ ]]..replacement)
 end
 
