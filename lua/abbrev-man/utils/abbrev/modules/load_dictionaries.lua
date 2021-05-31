@@ -227,6 +227,13 @@ function M.load_natural_dictionaries_at_startup(option)
 		if has_element(am_dicts, u_dict, "value") then
 
 			local inner_am_dict = require("abbrev-man.dictionaries.langs_natural."..u_dict)
+
+			for element in pairs(user_dicts[u_dict]) do
+				if not has_element(inner_am_dict, element, "index") then
+					inner_am_dict[element] = user_dicts[u_dict][element]
+				end
+			end
+
 			for element in pairs(inner_am_dict) do
 				if has_element(user_dicts[u_dict], element, "index") then
 					if not (user_dicts[u_dict][element] == "rm_am") then
@@ -236,6 +243,8 @@ function M.load_natural_dictionaries_at_startup(option)
 						inner_am_dict[element] = nil -- remove element
 					end
 				end
+
+				-- if has_element(inner_am_dict, )
 			end
 
 			if (option == "source") then
