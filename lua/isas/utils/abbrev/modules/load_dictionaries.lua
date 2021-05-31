@@ -107,7 +107,7 @@ function M.load_dict(dict)
 			local buffer_filetype = vim.api.nvim_eval([[expand('%:e')]])
 
 			if (buffer_filetype == file_type) then
-				cmd([[parse_iabbrev_pr(user_langs_programming_list[dict], "buffer")]])
+				cmd([[]]..parse_iabbrev_pr(user_langs_programming_list[dict], "buffer")..[[]])
 			end
 
 		elseif has_element(user_langs_programming_list, dict, "value") then
@@ -121,7 +121,8 @@ function M.load_dict(dict)
 			local buffer_filetype = vim.api.nvim_eval([[expand('%:e')]])
 
 			if (buffer_filetype == file_type) then
-				cmd([[parse_iabbrev_pr(user_langs_programming_list[dict], "buffer")]])
+				-- cmd([[parse_iabbrev_pr(user_langs_programming_list[dict], "buffer")]])
+				cmd([[]]..parse_iabbrev_pr(user_langs_programming_list[dict], "buffer")..[[]])
 			end
 
 		end
