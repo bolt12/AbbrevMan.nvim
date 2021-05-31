@@ -68,8 +68,15 @@ local function map_iabbrev(element, replacement)
 	cmd([[iabbrev ]]..element..[[ ]]..replacement)
 end
 
-local function unmap_iabbrev(element)
-	cmd([[iunabbrev ]]..element)
+local function unmap_iabbrev(element, scope)
+
+	scope = scope or "global"
+
+	if (scope == "global") then
+		cmd([[iunabbrev ]]..element)
+	elseif (scope == "buffer") then
+		cmd([[iunabbrev <buffer>]]..element)
+	end
 end
 
 function M.load_dict(dict)
@@ -101,14 +108,11 @@ function M.load_dict(dict)
 				"ISAS_"..dict,
 				"BufWinEnter",
 				"*."..file_type.." silent!",
-				parse_iabbrev_pr(require("isas.dictionaries.langs_programming."..dict), "global")
+				parse_iabbrev_pr(require("isas.dictionaries.langs_programming."..dict), "buffer")
 			)
 
 			local buffer_filetype = vim.api.nvim_eval([[expand('%:e')]])
-
 			if (buffer_filetype == file_type) then
-				local iab_cmd = parse_iabbrev_pr(require("isas.dictionaries.langs_programming."..dict), "buffer")
-				vim.cmd("echo 'IAB COMMAND = "..iab_cmd.."'")
 				cmd([[]]..parse_iabbrev_pr(require("isas.dictionaries.langs_programming."..dict), "buffer")..[[]])
 			end
 
@@ -117,14 +121,11 @@ function M.load_dict(dict)
 				"ISAS_"..dict,
 				"BufWinEnter",
 				"*."..file_type.." silent!",
-				parse_iabbrev_pr(require("isas.dictionaries.langs_programming."..dict), "global")
+				parse_iabbrev_pr(require("isas.dictionaries.langs_programming."..dict), "buffer")
 			)
 
 			local buffer_filetype = vim.api.nvim_eval([[expand('%:e')]])
-
 			if (buffer_filetype == file_type) then
-				local iab_cmd = parse_iabbrev_pr(user_langs_programming_list[dict], "buffer")
-				vim.cmd("echo 'IAB COMMAND = "..iab_cmd.."'")
 				cmd([[]]..parse_iabbrev_pr(user_langs_programming_list[dict], "buffer")..[[]])
 			end
 
@@ -160,12 +161,12 @@ function M.unload_dict(dict)
 			if has_element(isas_langs_programming_list, dict, "value") then
 				require("isas.utils.abbrev.modules.isas_augroups").unset_augroup("ISAS_"..dict)
 				for element in pairs(require("isas.dictionaries.langs_programming."..dict)) do
-					unmap_iabbrev(element)
+					unmap_iabbrev(element, "buffer")
 				end
 			elseif has_element(user_langs_programming_list, dict, "value") then
 				require("isas.utils.abbrev.modules.isas_augroups").unset_augroup("ISAS_"..dict)
 				for element in pairs(require(user_langs_programming_list[dict])) do
-					unmap_iabbrev(element)
+					unmap_iabbrev(element, "buffer")
 				end
 			end
 		end
@@ -209,14 +210,8 @@ function M.load_programming_dictionaries_at_startup(option)
 					"ISAS_"..u_dict,
 					"BufWinEnter",
 					"*."..file_type.." silent!",
-					parse_iabbrev_pr(inner_isas_dict, "global")
+					parse_iabbrev_pr(inner_isas_dict, "buffer")
 				)
-
--- 				local buffer_filetype = vim.api.nvim_eval([[expand('%:e')]])
---
--- 				if (buffer_filetype == file_type) then
--- 					parse_iabbrev_pr(inner_isas_dict, "buffer")
--- 				end
 
 				table.insert(M.loaded_dicts, u_dict)
 			end
@@ -227,7 +222,7 @@ function M.load_programming_dictionaries_at_startup(option)
 					"ISAS_"..u_dict,
 					"BufEnter",
 					"*"..file_type.." silent!",
-					parse_iabbrev_pr(user_langs_programming_list[u_dict], "global")
+					parse_iabbrev_pr(user_langs_programming_list[u_dict], "buffer")
 				)
 
 -- 				local buffer_filetype = vim.api.nvim_eval([[expand('%:e')]])
