@@ -9,6 +9,7 @@ local isas_dicts = require("isas.dictionaries.langs_natural.langs_natural_list")
 local user_dicts = opts["natural_dictionaries"]
 M.loaded_dicts = {}
 
+
 local function has_element(table, element, type)
 	if (type == "value") then
 		for index, value in pairs(table) do
@@ -23,15 +24,19 @@ local function has_element(table, element, type)
     return false
 end
 
-function M.available_commands()
+local function map_iabbrev(element, replacement)
+	cmd([[iabbrev ]]..element..[[ ]]..replacement)
+end
 
-	local arguments = {}
+local function unmap_iabbrev(element, scope)
 
-	for dict, dict_name in pairs(M.loaded_dicts) do
-		arguments[dict_name] = dict_name
+	scope = scope or "global"
+
+	if (scope == "global") then
+		cmd([[iunabbrev ]]..element)
+	elseif (scope == "buffer") then
+		cmd([[iunabbrev <buffer>]]..element)
 	end
-
-	return vim.tbl_keys(arguments)
 end
 
 local function remove_element_tbl(tbl, element)
@@ -62,21 +67,6 @@ local function parse_iabbrev_pr(tabl, objective)
 
 	return str_commands
 
-end
-
-local function map_iabbrev(element, replacement)
-	cmd([[iabbrev ]]..element..[[ ]]..replacement)
-end
-
-local function unmap_iabbrev(element, scope)
-
-	scope = scope or "global"
-
-	if (scope == "global") then
-		cmd([[iunabbrev ]]..element)
-	elseif (scope == "buffer") then
-		cmd([[iunabbrev <buffer>]]..element)
-	end
 end
 
 function M.load_dict(dict)
@@ -143,14 +133,13 @@ function M.load_dict(dict)
 	end
 
 end
---
+
 function M.unload_dict(dict)
 
 	local isas_langs_natural_list = require("isas.dictionaries.langs_natural.langs_natural_list").arguments
 	local isas_langs_programming_list = require("isas.dictionaries.langs_programming.langs_programming_list").arguments
 	local user_langs_natural_list = opts["natural_dictionaries"]
 	local user_langs_programming_list = opts["programming_dictionaries"]
-
 
 	if has_element(M.loaded_dicts, dict, "value") then
 		if string.find(dict, "nt_") then
@@ -271,6 +260,4 @@ end
 
 
 return M
-
-
 
