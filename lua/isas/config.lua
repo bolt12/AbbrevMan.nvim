@@ -5,9 +5,6 @@ local config = {}
 config.options = {
 	load_natural_dictionaries_at_startup = true,
 	load_programming_dictionaries_at_startup = true,
-	integrations = {
-		integration_nvim_autopairs = true
-	},
 	natural_dictionaries = {
 		["nt_en"] = {}
 	},
