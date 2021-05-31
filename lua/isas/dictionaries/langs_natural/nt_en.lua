@@ -1,6 +1,9 @@
 
 
-local dict = {
+
+local M = {}
+
+M.normal = {
 	["Iam"] = "I am",
 	["Im"] = "I am",
 	["TEh"] = "The",
@@ -325,10 +328,20 @@ local dict = {
 	["realli"] = "really",
 	["sukc"] = "suck",
 	["zpeling"] = "spelling",
-	["yuor"] = "your"
+	["yuor"] = "your",
 }
 
-return dict
+M.permutate = {
+	["the"] = "the",
+	["and"] = "and",
+	["you"] = "you",
+	["theyre"] = "they are",
+	["with"] = "with",
+	["like"] = "like",
+	["your"] = "your",
+}
 
 
+
+return M
 

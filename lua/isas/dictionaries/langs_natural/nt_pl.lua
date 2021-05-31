@@ -1,4 +1,8 @@
-local dict = {
+
+
+local M = {}
+
+M.normal = {
 	["azalirz"] = "azaliż",
 	["Azalirz"] = "Azaliż",
 	["beda"] = "będą",
@@ -15,34 +19,20 @@ local dict = {
 	["Będe"] = "Będę",
 	["cudowac"] = "cudować",
 	["Cudowac"] = "Cudować",
-	["Huj"] = "Chuj",
 	["huj"] = "chuj",
-	["Huj"] = "Chuj",
 	["Huj"] = "Chuj",
 	["idac"] = "idąc",
 	["Idac"] = "Idąc",
 	["idz"] = "idź",
 	["Idz"] = "Idź",
-	["Idz"] = "Idź",
-	["Idz"] = "Idź",
-	["jebac"] = "jebać",
 	["jebac"] = "jebać",
 	["Jebac"] = "Jebać",
-	["Jebac"] = "Jebać",
-	["Jestm"] = "Jestem",
 	["Jestm"] = "Jestem",
 	["Jestym"] = "Jestem",
-	["Jestym"] = "Jestem",
-	["Jstem"] = "Jestem",
 	["Jstem"] = "Jestem",
 	["Kórwa"] = "Kurwa",
 	["kórwa"] = "kurwa",
-	["Kórwa"] = "Kurwa",
-	["Kórwa"] = "Kurwa",
-	["Kruwa"] = "Kurwa",
 	["kruwa"] = "kurwa",
-	["Kruwa"] = "Kurwa",
-	["Kruwa"] = "Kurwa",
 	["schlodzilem"] = "schłodziłem",
 	["Schlodzilem"] = "Schłodziłem",
 	["schodzac"] = "schodząc",
@@ -66,9 +56,6 @@ local dict = {
 	["wychędożyc"] = "wychędożyć",
 	["Wychędożyc"] = "Wychędożyć",
 	["wychodzac"] = "wychodząc",
-	["wychodzac"] = "wychodząc",
-	["Wychodzac"] = "Wychodząc",
-	["Wychodzac"] = "Wychodząc",
 	["wychodzic"] = "wychodzić",
 	["Wychodzic"] = "Wychodzić",
 	["wyjsc"] = "wyjść",
@@ -95,8 +82,20 @@ local dict = {
 	["Zrobileś"] = "Zrobiłeś",
 	["zrobiliscie"] = "zrobiliście",
 	["Zrobiliscie"] = "Zrobiliście",
-	["zrobiłes"] = "zrobiłeś"
+	["zrobiłes"] = "zrobiłeś",
 	["Zrobiłes"] = "Zrobiłeś"
 }
 
-return dict
+M.permutate = {
+	["azalirz"] = "azaliż",
+	["Azalirz"] = "Azaliż",
+	["Wyjśc"] = "Wyjść",
+	["beda"] = "będą",
+	["Beda"] = "Będą",
+	["Wsparlem"] = "Wsparłem",
+	["Zrobiłes"] = "Zrobiłeś"
+}
+
+
+return M
+
