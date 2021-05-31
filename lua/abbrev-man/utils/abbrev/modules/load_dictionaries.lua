@@ -187,7 +187,7 @@ function M.load_programming_dictionaries_at_startup(option)
 			local inner_am_dict = require("abbrev-man.dictionaries.langs_programming."..u_dict)
 			for element in pairs(inner_am_dict) do
 				if has_element(user_langs_programming_list[u_dict], element, "index") then
-					if not (user_langs_programming_list[u_dict][element] == "rm_isas") then
+					if not (user_langs_programming_list[u_dict][element] == "rm_am") then
 						inner_am_dict[element] = user_langs_programming_list[u_dict][element]
 					else
 						inner_am_dict[element] = nil -- remove element
@@ -224,11 +224,11 @@ end
 function M.load_natural_dictionaries_at_startup(option)
 	for u_dict in pairs(user_dicts) do
 		if has_element(am_dicts, u_dict, "value") then
-			cmd("echo 'Dict = "..tostring(u_dict).."'")
+
 			local inner_am_dict = require("abbrev-man.dictionaries.langs_natural."..u_dict)
 			for element in pairs(inner_am_dict) do
 				if has_element(user_dicts[u_dict], element, "index") then
-					if not (user_dicts[u_dict][element] == "rm_isas") then
+					if not (user_dicts[u_dict][element] == "rm_am") then
 						inner_am_dict[element] = user_dicts[u_dict][element]
 					else
 						inner_am_dict[element] = nil -- remove element
