@@ -296,14 +296,6 @@ function M.load_natural_dictionaries_at_startup(option)
 
 			if (option == "source") then
 
-				if (perm_status ~= nil and perm_status == true) then
-					for element in pairs(inner_isas_dict.permutate) do
-						vim.cmd("echo 'Mapping: "..element.."'")
-						map_iabbrev_permutation(element)
-					end
-					table.insert(M.loaded_dicts, u_dict)
-				end
-
 				if (nrml_status ~= nil and nrml_status == true) then
 					for element in pairs(inner_isas_dict.normal) do
 						vim.cmd("echo 'Mapping: "..element.."'")
@@ -312,6 +304,15 @@ function M.load_natural_dictionaries_at_startup(option)
 					table.insert(M.loaded_dicts, u_dict)
 				end
 
+				if (perm_status ~= nil and perm_status == true) then
+					for element in pairs(inner_isas_dict.permutate) do
+						vim.cmd("echo 'Mapping: "..element.."'")
+						map_iabbrev_permutation(element)
+					end
+					table.insert(M.loaded_dicts, u_dict)
+				end
+
+
 			end
 		else
 			local perm_status = user_dicts[u_dict]["permutation_enabled"]
@@ -319,21 +320,23 @@ function M.load_natural_dictionaries_at_startup(option)
 
 			if (option == "source") then
 
-				if (perm_status ~= nil and perm_status == true) then
-					if has_element(user_dicts[u_dict], "permutate", "index") then
-						for element in pairs(user_dicts[u_dict]["permutate"]) do
-							cmd("echo 'Mapping: "..element.."'")
-							map_iabbrev_permutation(element)
-						end
-					end
-					table.insert(M.loaded_dicts, u_dict)
-				end
 
 				if (nrml_status ~= nil and nrml_status == true) then
 					if has_element(user_dicts[u_dict], "normal", "index") then
 						for element in pairs(user_dicts[u_dict]["normal"]) do
 							cmd("echo 'Mapping: "..element.."'")
 							map_iabbrev(element, user_dicts[u_dict]["normal"][element])
+						end
+					end
+					table.insert(M.loaded_dicts, u_dict)
+				end
+
+
+				if (perm_status ~= nil and perm_status == true) then
+					if has_element(user_dicts[u_dict], "permutate", "index") then
+						for element in pairs(user_dicts[u_dict]["permutate"]) do
+							cmd("echo 'Mapping: "..element.."'")
+							map_iabbrev_permutation(element)
 						end
 					end
 					table.insert(M.loaded_dicts, u_dict)
