@@ -16,6 +16,7 @@ M.normal = {
 	["aboutit"] = "about it",
 	["acn"] = "can",
 	["adn"] = "and",
+	["na"] = "an",
 	["aer"] = "are",
 	["agian"] = "again",
 	["ahev"] = "have",
@@ -333,12 +334,15 @@ M.normal = {
 
 M.permutate = {
 	["the"] = "the",
+	["that"] = "that",
 	["and"] = "and",
 	["you"] = "you",
 	["theyre"] = "they are",
 	["with"] = "with",
 	["like"] = "like",
 	["your"] = "your",
+	["fact"] = "fact",
+	["really"] = "really",
 }
 
 
