@@ -336,16 +336,11 @@ M.permutate = {
 	["the"] = "the",
 	["that"] = "that",
 	["this"] = "this",
-	["actually"] = "actually",
-	["work"] = "work",
 	["and"] = "and",
 	["you"] = "you",
-	["theyre"] = "they are",
 	["with"] = "with",
 	["like"] = "like",
 	["your"] = "your",
-	["fact"] = "fact",
-	["really"] = "really",
 }
 
 
