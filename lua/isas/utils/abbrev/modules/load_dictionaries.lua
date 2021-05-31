@@ -264,29 +264,29 @@ function M.load_natural_dictionaries_at_startup(option)
 			local perm_status = opts["natural_dictionaries"][u_dict]["permutation_enabled"]
 			local nrml_status = opts["natural_dictionaries"][u_dict]["normal_enabled"]
 
+			vim.cmd("echo 'Dict = "..tostring(inner_isas_dict.normal).."'")
 
 
 
-
-			for element in pairs(inner_isas_dict.normal) do
-				if has_element(user_dicts[u_dict]["normal"], element, "index") then
-					if not (user_dicts[u_dict]["normal"][element] == "rm_isas") then
-						inner_isas_dict.normal[element] = user_dicts[u_dict]["normal"][element]
-					else
-						inner_isas_dict.normal[element] = nil -- remove element
-					end
-				end
-			end
-
-			for element in pairs(inner_isas_dict.permutate) do
-				if has_element(user_dicts[u_dict]["permutate"], element, "index") then
-					if not (user_dicts[u_dict]["permutate"][element] == "rm_isas") then
-						inner_isas_dict.permutate[element] = user_dicts[u_dict]["permutate"][element]
-					else
-						inner_isas_dict.permutate[element] = nil -- remove element
-					end
-				end
-			end
+-- 			for element in pairs(inner_isas_dict.normal) do
+-- 				if has_element(user_dicts[u_dict]["normal"], element, "index") then
+-- 					if not (user_dicts[u_dict]["normal"][element] == "rm_isas") then
+-- 						inner_isas_dict.normal[element] = user_dicts[u_dict]["normal"][element]
+-- 					else
+-- 						inner_isas_dict.normal[element] = nil -- remove element
+-- 					end
+-- 				end
+-- 			end
+--
+-- 			for element in pairs(inner_isas_dict.permutate) do
+-- 				if has_element(user_dicts[u_dict]["permutate"], element, "index") then
+-- 					if not (user_dicts[u_dict]["permutate"][element] == "rm_isas") then
+-- 						inner_isas_dict.permutate[element] = user_dicts[u_dict]["permutate"][element]
+-- 					else
+-- 						inner_isas_dict.permutate[element] = nil -- remove element
+-- 					end
+-- 				end
+-- 			end
 
 
 
