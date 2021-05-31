@@ -80,7 +80,7 @@
 - Users can create personalized dictionaries.
 - Users can override and delete elements in the built-in dictionaries.
 - Has commands to load and unload dictionaries at any given time.
-- Can be set or not to load at startup.
+- Can be set to load or not at startup.
 - Tab auto-completion for the commands.
 
 
