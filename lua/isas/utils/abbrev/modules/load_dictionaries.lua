@@ -271,27 +271,28 @@ function M.load_natural_dictionaries_at_startup(option)
 
 
 			for element in pairs(inner_isas_dict.normal) do
-				if has_element(user_dicts[u_dict]["normal"], element, "index") then
-					if not (user_dicts[u_dict]["normal"][element] == "rm_isas") then
-						inner_isas_dict.normal[element] = user_dicts[u_dict]["normal"][element]
-					else
-						inner_isas_dict.normal[element] = nil -- remove element
+				if has_element(user_dicts[u_dict], "normal", "index") then
+					if has_element(user_dicts[u_dict]["normal"], element, "index") then
+						if not (user_dicts[u_dict]["normal"][element] == "rm_isas") then
+							inner_isas_dict.normal[element] = user_dicts[u_dict]["normal"][element]
+						else
+							inner_isas_dict.normal[element] = nil -- remove element
+						end
 					end
 				end
 			end
 --
 			for element in pairs(inner_isas_dict.permutate) do
-				if has_element(user_dicts[u_dict]["permutate"], element, "index") then
-					if not (user_dicts[u_dict]["permutate"][element] == "rm_isas") then
-						inner_isas_dict.permutate[element] = user_dicts[u_dict]["permutate"][element]
-					else
-						inner_isas_dict.permutate[element] = nil -- remove element
+				if has_element(user_dicts[u_dict], "permutate", "index") then
+					if has_element(user_dicts[u_dict]["permutate"], element, "index") then
+						if not (user_dicts[u_dict]["permutate"][element] == "rm_isas") then
+							inner_isas_dict.permutate[element] = user_dicts[u_dict]["permutate"][element]
+						else
+							inner_isas_dict.permutate[element] = nil -- remove element
+						end
 					end
 				end
 			end
-
-
-
 
 			if (option == "source") then
 				if (nrml_status ~= nil and nrml_status == true) then
