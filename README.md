@@ -1,4 +1,4 @@
-# 🍍 AbbrevMan.nvim
+<h1 align="center">🍍 AbbrevMan.nvim</h1>
 
 <p align="center">
 	A NeoVim plugin that manages abbreviations for various natural and programming languages!
