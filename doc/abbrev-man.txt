@@ -70,7 +70,7 @@ Plugin 'Pocco81/AbbrevMan.nvim'
 NeoBundleFetch 'Pocco81/AbbrevMan.nvim'
 ```
 
-## Setup (configuration)						*am-configuration*
+## Setup (configuration)						*am-setup-configuration*
 As it's stated in the TL;DR, there are already some sane defaults that you may like, however you can change them to match your taste. These are the defaults:
 
 ```lua
